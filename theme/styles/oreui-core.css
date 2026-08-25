@@ -1,0 +1,783 @@
+/* ==========================================================================
+   OreUI Core Styles & Components
+   ========================================================================== */
+
+/* --------------------------------------------------------------------------
+   Custom Minecraft Scrollbar
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 14px;
+  height: 14px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: #58585A;
+  border-left: 2px solid #313233;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: #E6E8EB;
+  border: 2px solid #000000;
+  box-shadow: inset 0 -3px #58585A, inset 0 -5px #F9FAFA, inset 2px 2px #F9FAFA, inset -2px 0 #F9FAFA;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #FFFFFF;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Buttons
+   -------------------------------------------------------------------------- */
+.oreui-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: var(--oreui-btn-height);
+  margin: var(--oreui-btn-margin);
+  padding: 0 16px var(--oreui-btn-padding-bottom) 16px;
+  border: none;
+  outline: none;
+  font-family: var(--font-noto-bold);
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  user-select: none;
+  text-decoration: none !important;
+  box-sizing: border-box;
+  transition: all 0.08s ease;
+  position: relative;
+  text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+}
+
+.oreui-btn:active:not(:disabled):not(.is-disabled) {
+  height: calc(var(--oreui-btn-height) - var(--oreui-btn-active-offset));
+  margin-top: calc(var(--oreui-btn-margin) + var(--oreui-btn-active-offset));
+  padding-bottom: calc(var(--oreui-btn-padding-bottom) - (var(--oreui-btn-active-offset) / 2));
+}
+
+/* Button Sizes */
+.oreui-btn.size-xs { width: var(--oreui-btn-width-xs); }
+.oreui-btn.size-sm { width: var(--oreui-btn-width-sm); }
+.oreui-btn.size-md { width: var(--oreui-btn-width-md); }
+.oreui-btn.size-lg { width: var(--oreui-btn-width-lg); }
+.oreui-btn.size-auto { width: auto; min-width: 100px; }
+.oreui-btn.size-full { width: calc(100% - 12px); }
+
+/* Normal / Neutral Button */
+.oreui-btn.variant-normal {
+  border: 2px solid var(--neutral-border);
+  background-color: var(--secondary-background);
+  box-shadow:
+    inset 0 -4px var(--secondary-shadow),
+    inset 3px 3px rgba(255, 255, 255, 0.6),
+    inset -3px -7px rgba(255, 255, 255, 0.4);
+  color: var(--secondary-text);
+  text-shadow: none;
+}
+
+.oreui-btn.variant-normal:hover:not(:disabled):not(.is-disabled) {
+  background-color: var(--secondary-background-hovered);
+  box-shadow:
+    inset 0 -4px var(--secondary-shadow),
+    inset 3px 3px rgba(255, 255, 255, 0.8),
+    inset -3px -7px rgba(255, 255, 255, 0.6);
+}
+
+.oreui-btn.variant-normal:active:not(:disabled):not(.is-disabled) {
+  background-color: var(--secondary-background-pressed);
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.8),
+    inset -3px -3px rgba(255, 255, 255, 0.6);
+}
+
+/* Green / Primary Button */
+.oreui-btn.variant-green {
+  border: 2px solid var(--primary-border);
+  background-color: var(--primary-background);
+  box-shadow:
+    inset 0 -4px var(--primary-shadow),
+    inset 3px 3px rgba(255, 255, 255, 0.2),
+    inset -3px -7px rgba(255, 255, 255, 0.1);
+  color: var(--primary-text);
+}
+
+.oreui-btn.variant-green:hover:not(:disabled):not(.is-disabled) {
+  background-color: var(--primary-background-hovered);
+  box-shadow:
+    inset 0 -4px var(--primary-shadow),
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -7px rgba(255, 255, 255, 0.3);
+}
+
+.oreui-btn.variant-green:active:not(:disabled):not(.is-disabled) {
+  background-color: var(--primary-background-pressed);
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -3px rgba(255, 255, 255, 0.3);
+}
+
+/* Red / Destructive Button */
+.oreui-btn.variant-red {
+  border: 2px solid var(--destructive-border);
+  background-color: var(--destructive-background);
+  box-shadow:
+    inset 0 -4px var(--destructive-shadow),
+    inset 3px 3px rgba(255, 255, 255, 0.2),
+    inset -3px -7px rgba(255, 255, 255, 0.1);
+  color: var(--destructive-text);
+}
+
+.oreui-btn.variant-red:hover:not(:disabled):not(.is-disabled) {
+  background-color: var(--destructive-background-hovered);
+  box-shadow:
+    inset 0 -4px var(--destructive-shadow),
+    inset 3px 3px rgba(255, 255, 255, 0.5),
+    inset -3px -7px rgba(255, 255, 255, 0.4);
+}
+
+.oreui-btn.variant-red:active:not(:disabled):not(.is-disabled) {
+  background-color: var(--destructive-background-pressed);
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.5),
+    inset -3px -3px rgba(255, 255, 255, 0.4);
+}
+
+/* Disabled Button */
+.oreui-btn:disabled,
+.oreui-btn.is-disabled {
+  border: 2px solid var(--neutral-border-disabled);
+  background-color: var(--neutral-background-disabled);
+  box-shadow: inset 0 -4px var(--neutral-shadow-disabled);
+  color: var(--neutral-text-disabled);
+  cursor: not-allowed;
+  text-shadow: none;
+}
+
+.oreui-btn-group {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Checkbox
+   -------------------------------------------------------------------------- */
+.oreui-checkbox {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  cursor: pointer;
+  user-select: none;
+  font-family: var(--font-noto-bold);
+  font-size: 14px;
+}
+
+.oreui-checkbox-box {
+  background-color: #8C8D90;
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.2), inset -2px -2px rgba(255, 255, 255, 0.1);
+  height: 22px;
+  width: 22px;
+  position: relative;
+  box-sizing: border-box;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.1s ease;
+}
+
+.oreui-checkbox:hover:not(.is-disabled) .oreui-checkbox-box {
+  background-color: #B1B2B5;
+}
+
+.oreui-checkbox:active:not(.is-disabled) .oreui-checkbox-box {
+  background-color: #58585A;
+}
+
+.oreui-checkbox.is-checked .oreui-checkbox-box {
+  background-color: #3C8527;
+}
+
+.oreui-checkbox.is-checked:hover:not(.is-disabled) .oreui-checkbox-box {
+  background-color: #2A641C;
+}
+
+.oreui-checkbox.is-checked:active:not(.is-disabled) .oreui-checkbox-box {
+  background-color: #1D4D13;
+}
+
+.oreui-checkbox.is-disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.oreui-checkbox.is-disabled .oreui-checkbox-box {
+  background-color: #D0D1D4;
+  border-color: #8C8D90;
+}
+
+.oreui-checkbox-mark {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Switch Toggle
+   -------------------------------------------------------------------------- */
+.oreui-switch-wrapper {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  user-select: none;
+  font-family: var(--font-noto-bold);
+}
+
+.oreui-switch {
+  cursor: pointer;
+  height: 24px;
+  width: 58px;
+  position: relative;
+  border: 2px solid #1E1E1F;
+  background: linear-gradient(to right, #3C8527 50%, #8C8D90 50%);
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.2), inset -2px -2px rgba(255, 255, 255, 0.1);
+  box-sizing: content-box;
+}
+
+.oreui-switch.is-disabled {
+  background-color: #D0D1D4;
+  border-color: #8C8D90;
+  cursor: not-allowed;
+  opacity: 0.7;
+}
+
+.oreui-switch-icon-left {
+  position: absolute;
+  left: 6px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.oreui-switch-icon-right {
+  position: absolute;
+  right: 6px;
+  top: 4px;
+  width: 16px;
+  height: 16px;
+}
+
+.oreui-switch-slider {
+  background-color: #D0D1D4;
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 0 -4px #58585A, inset 2px 2px rgba(255, 255, 255, 0.6), inset -2px -6px rgba(255, 255, 255, 0.4);
+  height: 28px;
+  width: 28px;
+  position: absolute;
+  top: -4px;
+  left: -2px;
+  transition: left 125ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 1;
+}
+
+.oreui-switch.is-on .oreui-switch-slider {
+  left: 28px;
+}
+
+.oreui-switch:hover:not(.is-disabled) .oreui-switch-slider {
+  background-color: #B1B2B5;
+  box-shadow: inset 0 -4px #58585A, inset 2px 2px rgba(255, 255, 255, 0.8), inset -2px -6px rgba(255, 255, 255, 0.6);
+}
+
+.oreui-switch.bounce-left {
+  animation: bounce_right 175ms ease-in-out 2;
+}
+
+.oreui-switch.bounce-right {
+  animation: bounce_left 175ms ease-in-out 2;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Slider
+   -------------------------------------------------------------------------- */
+.oreui-slider-container {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  width: 100%;
+  margin: 12px 0;
+  font-family: var(--font-noto-bold);
+}
+
+.oreui-slider-track {
+  background-color: #8C8D90;
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.4), inset -2px -2px rgba(255, 255, 255, 0.2);
+  cursor: pointer;
+  height: 8px;
+  position: relative;
+  flex: 1;
+}
+
+.oreui-slider-progress {
+  background-color: #3C8527;
+  height: 100%;
+  position: absolute;
+  left: 0;
+  top: 0;
+  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.4), inset -2px -2px rgba(255, 255, 255, 0.2);
+}
+
+.oreui-slider-thumb {
+  background-color: #D0D1D4;
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 0 -4px #58585A, inset 2px 2px rgba(255, 255, 255, 0.6), inset -2px -6px rgba(255, 255, 255, 0.4);
+  height: 26px;
+  width: 26px;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  cursor: pointer;
+  z-index: 2;
+}
+
+.oreui-slider-thumb:hover,
+.oreui-slider-track:hover .oreui-slider-thumb {
+  background-color: #B1B2B5;
+}
+
+.oreui-slider-segment {
+  background-color: #1E1E1F;
+  height: 8px;
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 2px;
+  z-index: 1;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Dropdown
+   -------------------------------------------------------------------------- */
+.oreui-dropdown {
+  position: relative;
+  width: 100%;
+  max-width: 320px;
+  font-family: var(--font-noto-bold);
+  user-select: none;
+}
+
+.oreui-dropdown-label {
+  align-items: center;
+  background-color: #D0D1D4;
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 0 -4px #58585A, inset 3px 3px rgba(255, 255, 255, 0.6), inset -3px -7px rgba(255, 255, 255, 0.4);
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: flex;
+  height: 40px;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.oreui-dropdown-label:hover {
+  background-color: #B1B2B5;
+}
+
+.oreui-dropdown-menu {
+  background-color: #58585A;
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 2px 0 #8C8D90, inset -2px 0 #8C8D90, inset 0 2px #8C8D90, inset 0 -2px #8C8D90;
+  color: #FFFFFF;
+  position: absolute;
+  top: calc(100% + 2px);
+  left: 0;
+  width: 100%;
+  z-index: 50;
+  box-sizing: border-box;
+}
+
+.oreui-dropdown-option {
+  align-items: center;
+  box-shadow: inset 0 1px #8C8D90, inset 0 -1px #8C8D90;
+  cursor: pointer;
+  display: flex;
+  height: 38px;
+  justify-content: space-between;
+  padding: 0 12px;
+  font-size: 14px;
+}
+
+.oreui-dropdown-option:hover {
+  background-color: #48494A;
+}
+
+.oreui-dropdown-option.is-selected {
+  background-color: #3C8527;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Text Inputs
+   -------------------------------------------------------------------------- */
+.oreui-input-container {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+}
+
+.oreui-input {
+  background-color: #313233;
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 0 4px #242425;
+  box-sizing: border-box;
+  caret-color: #6CC349;
+  color: #FFFFFF;
+  font-family: var(--font-noto-bold);
+  font-size: 14px;
+  height: 40px;
+  outline: none;
+  padding: 8px 12px;
+  width: 100%;
+  transition: border-color 0.15s ease;
+}
+
+.oreui-input:focus {
+  border-color: #FFFFFF;
+}
+
+.oreui-input::placeholder {
+  color: #8D8D90;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI ShowBlock (Shimmer Card)
+   -------------------------------------------------------------------------- */
+.oreui-show-block {
+  align-items: flex-start;
+  border: 2px solid #58585A;
+  background-color: #313233;
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin: 8px 0;
+  overflow: hidden;
+  padding: 12px 18px;
+  position: relative;
+  text-decoration: none !important;
+  color: #FFFFFF !important;
+  transition: all 0.15s ease;
+}
+
+.oreui-show-block::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 18px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.6);
+  transform: skewX(-45deg);
+  transition: none;
+  z-index: 2;
+}
+
+.oreui-show-block::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -150%;
+  width: 8px;
+  height: 100%;
+  background-color: rgba(255, 255, 255, 0.5);
+  transform: skewX(-45deg);
+  transition: none;
+  z-index: 1;
+}
+
+.oreui-show-block:hover::before {
+  animation: thickFlash 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.oreui-show-block:hover::after {
+  animation: thinFlash 0.6s 0.01s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.oreui-show-block:hover {
+  border: 2px solid #8D8D90;
+  background-color: #48494A;
+}
+
+.oreui-show-block-title {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: var(--font-mc-seven);
+  font-size: 18px;
+  margin-bottom: 4px;
+}
+
+.oreui-show-block-desc {
+  color: #D0D1D4;
+  font-family: var(--font-noto);
+  font-size: 13px;
+  line-height: 1.5;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Banners
+   -------------------------------------------------------------------------- */
+.oreui-banner {
+  display: flex;
+  align-items: center;
+  margin: 14px 0;
+  padding: 10px 16px;
+  box-sizing: border-box;
+  font-family: var(--font-noto-bold);
+  font-size: 14px;
+  line-height: 1.5;
+  border-left: 6px solid #1E1E1F;
+}
+
+.oreui-banner.banner-neutral {
+  background-color: rgba(30, 30, 31, 0.85);
+  border-left-color: #8C8D90;
+  color: #FFFFFF;
+}
+
+.oreui-banner.banner-info {
+  background-color: rgba(46, 107, 229, 0.2);
+  border-left-color: #2E6BE5;
+  color: #FFFFFF;
+}
+
+.oreui-banner.banner-important {
+  background-color: rgba(255, 232, 102, 0.2);
+  border-left-color: #FFE866;
+  color: #FFE866;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Badges & Tags
+   -------------------------------------------------------------------------- */
+.oreui-tag {
+  display: inline-flex;
+  align-items: center;
+  font-family: var(--font-noto-bold);
+  font-size: 12px;
+  padding: 2px 6px;
+  margin: 0 4px;
+  font-weight: 700;
+  color: #000000;
+  line-height: 1.2;
+}
+
+.oreui-tag.tag-green { background-color: #6CC349; }
+.oreui-tag.tag-blue { background-color: #8CB3FF; }
+.oreui-tag.tag-yellow { background-color: #FFE866; }
+.oreui-tag.tag-red { background-color: #F46D6D; }
+.oreui-tag.tag-black { background-color: #1E1E1F; color: #FFFFFF; }
+
+.oreui-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 3px 10px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 600;
+  border: 1px solid transparent;
+}
+
+.oreui-badge.badge-release {
+  background-color: rgba(16, 185, 129, 0.15);
+  border-color: rgba(16, 185, 129, 0.35);
+  color: #6ee7b7;
+}
+
+.oreui-badge.badge-dev {
+  background-color: rgba(99, 102, 241, 0.16);
+  border-color: rgba(129, 140, 248, 0.35);
+  color: #a5b4fc;
+}
+
+.oreui-badge.badge-internal {
+  background-color: rgba(245, 158, 11, 0.15);
+  border-color: rgba(251, 191, 36, 0.35);
+  color: #fcd34d;
+}
+
+.oreui-badge.badge-legacy {
+  background-color: rgba(6, 182, 212, 0.14);
+  border-color: rgba(103, 232, 249, 0.35);
+  color: #67e8f9;
+}
+
+.sb-status-dot {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+.sb-status-dot.release {
+  background-color: #10b981;
+  box-shadow: 0 0 6px rgba(16, 185, 129, 0.6);
+}
+
+.sb-status-dot.dev {
+  background-color: #6366f1;
+  box-shadow: 0 0 6px rgba(99, 102, 241, 0.6);
+}
+
+.sb-status-dot.internal {
+  background-color: #f59e0b;
+  box-shadow: 0 0 6px rgba(245, 158, 11, 0.6);
+}
+
+.sb-status-dot.legacy {
+  background-color: #08979c;
+  box-shadow: 0 0 6px rgba(8, 151, 156, 0.6);
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Multi-level Geometric Lists
+   -------------------------------------------------------------------------- */
+.oreui-list-item {
+  display: block;
+  margin: 6px 0;
+  position: relative;
+  font-family: var(--font-noto);
+}
+
+.oreui-list-item[data-level="1"] {
+  padding-left: 20px;
+}
+.oreui-list-item[data-level="1"]::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  background-color: #FFFFFF;
+}
+
+.oreui-list-item[data-level="2"] {
+  padding-left: 36px;
+}
+.oreui-list-item[data-level="2"]::before {
+  content: "";
+  position: absolute;
+  left: 20px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 6px;
+  height: 6px;
+  background-color: #FFFFFF;
+}
+
+.oreui-list-item[data-level="3"] {
+  padding-left: 52px;
+}
+.oreui-list-item[data-level="3"]::before {
+  content: "";
+  position: absolute;
+  left: 36px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.oreui-list-item[data-level="4"] {
+  padding-left: 68px;
+}
+.oreui-list-item[data-level="4"]::before {
+  content: "";
+  position: absolute;
+  left: 52px;
+  top: 50%;
+  transform: translateY(-50%) rotate(45deg);
+  width: 6px;
+  height: 6px;
+  border: 2px solid #FFFFFF;
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Tables
+   -------------------------------------------------------------------------- */
+.oreui-table {
+  background: #1e1e24;
+  border-collapse: collapse;
+  font-size: 13px;
+  margin: 16px 0;
+  width: 100%;
+  color: #D0D1D4;
+  box-sizing: border-box;
+  font-family: var(--font-noto);
+}
+
+.oreui-table thead tr {
+  background: #181a1f;
+  border-bottom: 2px solid #4b5263;
+}
+
+.oreui-table th {
+  color: #ffffff;
+  font-weight: 700;
+  font-family: var(--font-noto-bold);
+  padding: 12px 14px;
+  text-align: left;
+}
+
+.oreui-table td {
+  padding: 10px 14px;
+  border-bottom: 1px solid #2c313c;
+}
+
+.oreui-table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.oreui-table tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.15);
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Main Blocks & Frames
+   -------------------------------------------------------------------------- */
+.oreui-frame {
+  border-bottom: 2px solid #333334;
+  border-left: 2px solid #333334;
+  border-right: 2px solid #333334;
+  border-top: 2px solid #5A5B5C;
+  padding: 16px;
+  margin: 16px 0;
+  background-color: rgba(30, 30, 31, 0.5);
+}
+
+.oreui-title-area {
+  align-items: center;
+  border-bottom: 2px solid #333334;
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-mc-ten);
+  justify-content: center;
+  min-height: 60px;
+  text-align: center;
+  margin-bottom: 16px;
+}

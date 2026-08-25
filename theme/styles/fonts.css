@@ -1,0 +1,67 @@
+/* ==========================================================================
+   Minecraft Typography & Font Definitions
+   ========================================================================== */
+
+@font-face {
+  font-family: 'Minecraft Ten';
+  src: url('../assets/fonts/Minecraft-Ten.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Minecraft Seven';
+  src: url('../assets/fonts/Minecraft-Seven.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Minecraft Five';
+  src: url('../assets/fonts/Minecraft-Five.otf') format('opentype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'Minecraft Five Bold';
+  src: url('../assets/fonts/Minecraft-Five-Bold.otf') format('opentype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoSans';
+  src: url('../assets/fonts/NotoSans.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoSans Bold';
+  src: url('../assets/fonts/NotoSans-Bold.ttf') format('truetype');
+  font-weight: bold;
+  font-style: normal;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoSans Italic';
+  src: url('../assets/fonts/NotoSans-Italic.ttf') format('truetype');
+  font-weight: normal;
+  font-style: italic;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: 'NotoSans BoldItalic';
+  src: url('../assets/fonts/NotoSans-BoldItalic.ttf') format('truetype');
+  font-weight: bold;
+  font-style: italic;
+  font-display: swap;
+}

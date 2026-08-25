@@ -1,0 +1,26 @@
+{
+  "compilerOptions": {
+    "target": "ESNext",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "strict": true,
+    "jsx": "preserve",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "lib": ["ESNext", "DOM"],
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@theme/*": ["theme/*"]
+    }
+  },
+  "include": [
+    "theme/**/*.ts",
+    "theme/**/*.d.ts",
+    "theme/**/*.vue",
+    "docs/**/*.ts",
+    "docs/**/*.d.ts",
+    "docs/**/*.vue"
+  ]
+}
