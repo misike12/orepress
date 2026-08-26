@@ -11,7 +11,7 @@
         :title="isFullscreen ? 'Exit Fullscreen' : 'Fullscreen Preview'"
         @click="toggleFullscreen"
       >
-        <img src="/fullScreen.png" class="fullscreen-icon" alt="Fullscreen" />
+        <img :src="withBase('/fullScreen.png')" class="fullscreen-icon" alt="Fullscreen" />
       </button>
     </div>
 
@@ -24,6 +24,7 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
 interface Props {

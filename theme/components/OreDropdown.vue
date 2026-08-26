@@ -6,7 +6,7 @@
     >
       <span>{{ selectedLabel }}</span>
       <img
-        src="/arrowDown.png"
+        :src="withBase('/arrowDown.png')"
         class="oreui-dropdown-arrow"
         :class="{ 'is-open': isOpen }"
         alt="▼"
@@ -24,7 +24,7 @@
         <span>{{ opt.label }}</span>
         <img
           v-if="opt.value === innerValue"
-          src="/check_white.png"
+          :src="withBase('/check_white.png')"
           class="oreui-dropdown-check"
           alt="✓"
         />
@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
 interface OptionItem {

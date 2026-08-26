@@ -1,12 +1,12 @@
 <template>
   <div class="oreui-hero-container">
     <div class="oreui-hero-badge-row">
-      <OreBadge type="release">v1.0.0 Release</OreBadge>
+      <OreBadge type="release">v1.1.0 Release</OreBadge>
       <OreTag color="green">Minecraft Bedrock Style</OreTag>
     </div>
 
     <div class="oreui-hero-logo-box">
-      <img src="/logo.png" class="oreui-hero-logo" alt="OreUI" />
+      <img :src="withBase('/logo.png')" class="oreui-hero-logo" alt="OreUI" />
     </div>
 
     <h1 class="oreui-hero-title">
@@ -34,7 +34,7 @@
         variant="normal"
         size="sm"
         text="GitHub"
-        href="https://github.com/Spectrollay-OreUI/OreUI"
+        href="https://github.com/misike12/orepress"
         target="_blank"
         icon="Github"
       />
@@ -43,6 +43,7 @@
 </template>
 
 <script setup lang="ts">
+import { withBase } from 'vitepress'
 import OreButton from './OreButton.vue'
 import OreBadge from './OreBadge.vue'
 import OreTag from './OreTag.vue'

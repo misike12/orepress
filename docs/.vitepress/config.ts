@@ -65,7 +65,7 @@ export default defineConfig({
     },
 
     socialLinks: [
-      { icon: 'github', link: 'https://github.com/Spectrollay-OreUI/OreUI' }
+      { icon: 'github', link: 'https://github.com/misike12/orepress' }
     ],
 
     footer: {

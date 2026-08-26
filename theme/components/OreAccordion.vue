@@ -7,7 +7,7 @@
       <div class="oreui-accordion-title-box">
         <img
           v-if="icon"
-          :src="icon.startsWith('/') || icon.startsWith('http') ? icon : `/${icon}.png`"
+          :src="computedIcon"
           class="oreui-accordion-icon"
           alt=""
         />
@@ -18,7 +18,7 @@
       </div>
 
       <img
-        src="/arrowDown.png"
+        :src="withBase('/arrowDown.png')"
         class="oreui-accordion-arrow"
         :class="{ 'is-rotated': isOpen }"
         alt="▼"
@@ -32,7 +32,8 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch } from 'vue'
+import { computed, ref, watch } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
 interface Props {
@@ -70,6 +71,15 @@ watch(
     }
   }
 )
+
+const computedIcon = computed(() => {
+  if (!props.icon) return ''
+  if (props.icon.startsWith('http://') || props.icon.startsWith('https://')) {
+    return props.icon
+  }
+  const rawPath = props.icon.startsWith('/') ? props.icon : `/${props.icon}.png`
+  return withBase(rawPath)
+})
 
 function toggle() {
   if (props.disabled) return

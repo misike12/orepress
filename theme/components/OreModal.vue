@@ -14,7 +14,7 @@
               class="oreui-modal-close-btn"
               @click="close"
             >
-              <img src="/cross_white.png" class="oreui-modal-close-icon" alt="Close" />
+              <img :src="withBase('/cross_white.png')" class="oreui-modal-close-icon" alt="Close" />
             </button>
           </div>
 
@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import { onMounted, onUnmounted } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 import OreButton from './OreButton.vue'
 

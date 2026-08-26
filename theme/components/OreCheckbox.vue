@@ -7,7 +7,7 @@
     <div class="oreui-checkbox-box">
       <img
         v-if="innerValue"
-        src="/check_white.png"
+        :src="withBase('/check_white.png')"
         class="oreui-checkbox-mark"
         alt="Checked"
       />
@@ -20,6 +20,7 @@
 
 <script setup lang="ts">
 import { ref, watch } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
 interface Props {

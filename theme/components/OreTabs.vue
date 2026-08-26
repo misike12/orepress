@@ -17,7 +17,7 @@
       >
         <img
           v-if="tab.icon"
-          :src="tab.icon.startsWith('/') || tab.icon.startsWith('http') ? tab.icon : `/${tab.icon}.png`"
+          :src="resolveIcon(tab.icon)"
           class="oreui-tab-icon"
           alt=""
         />
@@ -35,6 +35,7 @@
 
 <script setup lang="ts">
 import { computed, ref, watch } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
 interface TabOption {
@@ -83,6 +84,15 @@ watch(
     }
   }
 )
+
+function resolveIcon(icon: string) {
+  if (!icon) return ''
+  if (icon.startsWith('http://') || icon.startsWith('https://')) {
+    return icon
+  }
+  const rawPath = icon.startsWith('/') ? icon : `/${icon}.png`
+  return withBase(rawPath)
+}
 
 function selectTab(val: string | number) {
   if (currentTab.value === val) return

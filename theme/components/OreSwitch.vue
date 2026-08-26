@@ -11,12 +11,12 @@
       @click="toggle"
     >
       <img
-        src="/switch_on.png"
+        :src="withBase('/switch_on.png')"
         class="oreui-switch-icon-left"
         alt="ON"
       />
       <img
-        src="/switch_off.png"
+        :src="withBase('/switch_off.png')"
         class="oreui-switch-icon-right"
         alt="OFF"
       />
@@ -30,6 +30,7 @@
 
 <script setup lang="ts">
 import { ref, watch, onUnmounted } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
 interface Props {

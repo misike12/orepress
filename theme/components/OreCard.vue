@@ -10,8 +10,8 @@
     <div v-if="title || $slots.header || $slots.extra" class="oreui-card-header">
       <div class="oreui-card-header-left">
         <img
-          v-if="icon"
-          :src="icon.startsWith('/') || icon.startsWith('http') ? icon : `/${icon}.png`"
+          v-if="icon && icon !== 'None'"
+          :src="computedIcon"
           class="oreui-card-icon"
           alt=""
         />
@@ -41,6 +41,9 @@
 </template>
 
 <script setup lang="ts">
+import { computed } from 'vue'
+import { withBase } from 'vitepress'
+
 interface Props {
   title?: string
   subtitle?: string
@@ -49,12 +52,21 @@ interface Props {
   hoverable?: boolean
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   title: '',
   subtitle: '',
   icon: '',
   variant: 'normal',
   hoverable: false
+})
+
+const computedIcon = computed(() => {
+  if (!props.icon || props.icon === 'None') return ''
+  if (props.icon.startsWith('http://') || props.icon.startsWith('https://')) {
+    return props.icon
+  }
+  const rawPath = props.icon.startsWith('/') ? props.icon : `/${props.icon}.png`
+  return withBase(rawPath)
 })
 </script>
 

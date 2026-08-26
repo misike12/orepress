@@ -145,7 +145,7 @@ Ideal for terms acceptance, critical confirmations, or action cooldowns. The but
       text="External Link"
       icon="ExternalLink_white"
       icon-position="right"
-      href="https://github.com/Spectrollay-OreUI/OreUI"
+      href="https://github.com/misike12/orepress"
       target="_blank"
     />
   </OreButtonGroup>

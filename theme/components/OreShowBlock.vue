@@ -1,7 +1,7 @@
 <template>
   <component
-    :is="href ? 'a' : 'div'"
-    :href="href"
+    :is="computedHref ? 'a' : 'div'"
+    :href="computedHref || undefined"
     :target="target"
     class="oreui-show-block"
     @click="handleClick"
@@ -18,6 +18,7 @@
 
 <script setup lang="ts">
 import { computed } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
 interface Props {
@@ -42,11 +43,26 @@ const emit = defineEmits<{
   (e: 'click', event: MouseEvent): void
 }>()
 
+const computedHref = computed(() => {
+  if (!props.href) return ''
+  if (
+    props.href.startsWith('http://') ||
+    props.href.startsWith('https://') ||
+    props.href.startsWith('//') ||
+    props.href.startsWith('#')
+  ) {
+    return props.href
+  }
+  return withBase(props.href)
+})
+
 const iconSrc = computed(() => {
   if (!props.icon) return ''
-  return props.icon.startsWith('/') || props.icon.startsWith('http')
-    ? props.icon
-    : `/${props.icon}.png`
+  if (props.icon.startsWith('http://') || props.icon.startsWith('https://')) {
+    return props.icon
+  }
+  const rawPath = props.icon.startsWith('/') ? props.icon : `/${props.icon}.png`
+  return withBase(rawPath)
 })
 
 function handleClick(e: MouseEvent) {

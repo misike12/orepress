@@ -1,8 +1,8 @@
 <template>
   <div class="oreui-btn-wrapper" :class="{ 'has-tip': !!tip }">
     <component
-      :is="href ? 'a' : 'button'"
-      :href="href"
+      :is="computedHref ? 'a' : 'button'"
+      :href="computedHref || undefined"
       :target="target"
       class="oreui-btn"
       :class="[
@@ -22,7 +22,7 @@
 
       <!-- Left Icon -->
       <img
-        v-if="icon && iconPosition === 'left' && !loading"
+        v-if="iconSrc && iconPosition === 'left' && !loading"
         :src="iconSrc"
         class="oreui-btn-icon left"
         alt=""
@@ -34,7 +34,7 @@
 
       <!-- Right Icon -->
       <img
-        v-if="icon && iconPosition === 'right'"
+        v-if="iconSrc && iconPosition === 'right'"
         :src="iconSrc"
         class="oreui-btn-icon right"
         alt=""
@@ -46,6 +46,7 @@
 
 <script setup lang="ts">
 import { computed, ref, onUnmounted } from 'vue'
+import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
 interface Props {
@@ -123,11 +124,27 @@ const displayLabel = computed(() => {
   return props.text || ''
 })
 
+const computedHref = computed(() => {
+  if (!props.href) return ''
+  if (
+    props.href.startsWith('http://') ||
+    props.href.startsWith('https://') ||
+    props.href.startsWith('//') ||
+    props.href.startsWith('#') ||
+    props.href.startsWith('mailto:')
+  ) {
+    return props.href
+  }
+  return withBase(props.href)
+})
+
 const iconSrc = computed(() => {
   if (!props.icon) return ''
-  return props.icon.startsWith('/') || props.icon.startsWith('http')
-    ? props.icon
-    : `/${props.icon}.png`
+  if (props.icon.startsWith('http://') || props.icon.startsWith('https://') || props.icon.startsWith('data:')) {
+    return props.icon
+  }
+  const rawPath = props.icon.startsWith('/') ? props.icon : `/${props.icon}.png`
+  return withBase(rawPath)
 })
 
 function handleClick(e: MouseEvent) {
