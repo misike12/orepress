@@ -11,8 +11,16 @@ import OreButtonGroup from './components/OreButtonGroup.vue'
 import OreCheckbox from './components/OreCheckbox.vue'
 import OreSwitch from './components/OreSwitch.vue'
 import OreSlider from './components/OreSlider.vue'
+import OreRadio from './components/OreRadio.vue'
+import OreRadioGroup from './components/OreRadioGroup.vue'
 import OreDropdown from './components/OreDropdown.vue'
 import OreInput from './components/OreInput.vue'
+import OreTabs from './components/OreTabs.vue'
+import OreAccordion from './components/OreAccordion.vue'
+import OreProgress from './components/OreProgress.vue'
+import OreTooltip from './components/OreTooltip.vue'
+import OreCard from './components/OreCard.vue'
+import OreKbd from './components/OreKbd.vue'
 import OreBanner from './components/OreBanner.vue'
 import OrePop from './components/OrePop.vue'
 import OreModal from './components/OreModal.vue'
@@ -29,6 +37,40 @@ import InteractiveToastDemo from './components/InteractiveToastDemo.vue'
 import InteractiveModalDemo from './components/InteractiveModalDemo.vue'
 import SoundSandboxDemo from './components/SoundSandboxDemo.vue'
 
+// Export Components
+export {
+  OreButton,
+  OreButtonGroup,
+  OreCheckbox,
+  OreSwitch,
+  OreSlider,
+  OreRadio,
+  OreRadioGroup,
+  OreDropdown,
+  OreInput,
+  OreTabs,
+  OreAccordion,
+  OreProgress,
+  OreTooltip,
+  OreCard,
+  OreKbd,
+  OreBanner,
+  OrePop,
+  OreModal,
+  OreShowBlock,
+  OreBadge,
+  OreTag,
+  OreList,
+  OreSoundToggle,
+  OreDisplay,
+  OreHero,
+  OreFeatures,
+  InteractiveDemo,
+  InteractiveToastDemo,
+  InteractiveModalDemo,
+  SoundSandboxDemo
+}
+
 // Export Composables
 export * from './composables/useSound'
 export * from './composables/usePop'
@@ -43,8 +85,16 @@ const OreUITheme: Theme = {
     app.component('OreCheckbox', OreCheckbox)
     app.component('OreSwitch', OreSwitch)
     app.component('OreSlider', OreSlider)
+    app.component('OreRadio', OreRadio)
+    app.component('OreRadioGroup', OreRadioGroup)
     app.component('OreDropdown', OreDropdown)
     app.component('OreInput', OreInput)
+    app.component('OreTabs', OreTabs)
+    app.component('OreAccordion', OreAccordion)
+    app.component('OreProgress', OreProgress)
+    app.component('OreTooltip', OreTooltip)
+    app.component('OreCard', OreCard)
+    app.component('OreKbd', OreKbd)
     app.component('OreBanner', OreBanner)
     app.component('OrePop', OrePop)
     app.component('OreModal', OreModal)

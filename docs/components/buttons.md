@@ -1,18 +1,25 @@
 # Button
 
 <OreBanner type="neutral">
-Buttons allow users to navigate or trigger actions. Upon clicking, the button mechanically depresses with a 3D tactile displacement and changes its specular highlight.
+Buttons allow users to navigate or trigger actions. Upon clicking, the button mechanically depresses with a 3D tactile displacement, updates specular highlights, and plays authentic Minecraft interaction audio.
 </OreBanner>
 
 ---
 
 ## 🎮 Color Variants
 
+OreUI supports the full spectrum of Minecraft Bedrock edition button palettes:
+
 <OreDisplay title="Color Variants">
   <OreButtonGroup>
     <OreButton variant="normal" text="Normal (Gray)" />
     <OreButton variant="green" text="Primary (Green)" />
+    <OreButton variant="purple" text="Creative (Purple)" />
+    <OreButton variant="blue" text="Info (Blue)" />
+    <OreButton variant="gold" text="Gold (Warning)" />
     <OreButton variant="red" text="Destructive (Red)" />
+    <OreButton variant="dark" text="Dark Stone" />
+    <OreButton variant="ghost" text="Ghost Flat" />
     <OreButton variant="disabled" text="Disabled State" />
   </OreButtonGroup>
 </OreDisplay>
@@ -22,9 +29,44 @@ Buttons allow users to navigate or trigger actions. Upon clicking, the button me
   <OreButtonGroup>
     <OreButton variant="normal" text="Normal (Gray)" />
     <OreButton variant="green" text="Primary (Green)" />
+    <OreButton variant="purple" text="Creative (Purple)" />
+    <OreButton variant="blue" text="Info (Blue)" />
+    <OreButton variant="gold" text="Gold (Warning)" />
     <OreButton variant="red" text="Destructive (Red)" />
-    <OreButton variant="disabled" text="Disabled State" />
+    <OreButton variant="dark" text="Dark Stone" />
+    <OreButton variant="ghost" text="Ghost Flat" />
   </OreButtonGroup>
+</template>
+```
+
+---
+
+## ✨ Special States & Effects
+
+### Enchanted Shimmer Foil & Loading State
+Add Minecraft enchanted foil shimmer with `enchanted` or a smooth animated spinner with `loading`:
+
+<OreDisplay title="Special Button States">
+  <OreButtonGroup>
+    <OreButton variant="purple" enchanted text="✨ Enchanted Diamond Sword" />
+    <OreButton variant="green" loading text="Connecting to Realm..." />
+    <OreButton variant="normal" loading text="Loading Data..." />
+    <OreButton variant="normal" size="icon" icon="Refresh" tip="Refresh Realm" />
+    <OreButton variant="green" size="icon" icon="check_white" tip="Save Changes" />
+  </OreButtonGroup>
+</OreDisplay>
+
+```vue
+<template>
+  <!-- Enchanted Shimmer Foil Effect -->
+  <OreButton variant="purple" enchanted text="✨ Enchanted Diamond Sword" />
+
+  <!-- Loading State -->
+  <OreButton variant="green" loading text="Connecting to Realm..." />
+
+  <!-- Square Icon Buttons -->
+  <OreButton variant="normal" size="icon" icon="Refresh" tip="Refresh Realm" />
+  <OreButton variant="green" size="icon" icon="check_white" tip="Save Changes" />
 </template>
 ```
 
@@ -32,7 +74,7 @@ Buttons allow users to navigate or trigger actions. Upon clicking, the button me
 
 ## 📐 Size Specifications
 
-OreUI provides `xs`, `sm`, `md`, `lg`, `auto`, and `full` width specifications:
+OreUI provides `xs`, `sm`, `md`, `lg`, `auto`, `full`, `icon`, and `icon-sm` specifications:
 
 <OreDisplay title="Button Sizes">
   <div style="display: flex; flex-direction: column; gap: 8px; width: 100%; max-width: 360px;">
@@ -131,9 +173,11 @@ Ideal for terms acceptance, critical confirmations, or action cooldowns. The but
 
 | Prop | Description | Type | Values | Default |
 | :--- | :--- | :--- | :--- | :--- |
-| `variant` | Color scheme variant | `string` | `'normal' \| 'green' \| 'red' \| 'disabled'` | `'normal'` |
-| `size` | Width dimension | `string` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'auto' \| 'full'` | `'auto'` |
+| `variant` | Color scheme variant | `string` | `'normal' \| 'green' \| 'purple' \| 'blue' \| 'gold' \| 'red' \| 'dark' \| 'ghost' \| 'disabled'` | `'normal'` |
+| `size` | Width dimension | `string` | `'xs' \| 'sm' \| 'md' \| 'lg' \| 'auto' \| 'full' \| 'icon' \| 'icon-sm'` | `'auto'` |
 | `text` | Button label text | `string` | - | `''` |
+| `loading` | Whether button is in loading state | `boolean` | - | `false` |
+| `enchanted` | Whether to show Minecraft enchanted foil shimmer | `boolean` | - | `false` |
 | `countdown` | Countdown seconds | `number` | - | `0` |
 | `tip` | Hover tooltip text | `string` | - | `''` |
 | `icon` | Built-in icon name | `string` | - | `''` |

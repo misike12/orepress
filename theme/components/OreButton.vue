@@ -8,18 +8,31 @@
       :class="[
         `variant-${variant}`,
         `size-${size}`,
-        { 'is-disabled': disabled || isCountingDown }
+        {
+          'is-disabled': disabled || isCountingDown || loading,
+          'mc-enchanted-foil': enchanted,
+          'is-loading': loading
+        }
       ]"
-      :disabled="disabled || isCountingDown"
+      :disabled="disabled || isCountingDown || loading"
       @click="handleClick"
     >
+      <!-- Loading spinner -->
+      <span v-if="loading" class="oreui-btn-spinner"></span>
+
+      <!-- Left Icon -->
       <img
-        v-if="icon && iconPosition === 'left'"
+        v-if="icon && iconPosition === 'left' && !loading"
         :src="iconSrc"
         class="oreui-btn-icon left"
         alt=""
       />
-      <span class="oreui-btn-text">{{ displayLabel }}</span>
+
+      <span class="oreui-btn-text">
+        <slot>{{ displayLabel }}</slot>
+      </span>
+
+      <!-- Right Icon -->
       <img
         v-if="icon && iconPosition === 'right'"
         :src="iconSrc"
@@ -36,12 +49,26 @@ import { computed, ref, onUnmounted } from 'vue'
 import { playSound } from '../composables/useSound'
 
 interface Props {
-  variant?: 'normal' | 'green' | 'red' | 'disabled'
-  size?: 'xs' | 'sm' | 'md' | 'lg' | 'auto' | 'full'
+  variant?:
+    | 'normal'
+    | 'green'
+    | 'red'
+    | 'purple'
+    | 'creative'
+    | 'blue'
+    | 'info'
+    | 'gold'
+    | 'yellow'
+    | 'dark'
+    | 'ghost'
+    | 'disabled'
+  size?: 'xs' | 'sm' | 'md' | 'lg' | 'auto' | 'full' | 'icon' | 'icon-sm'
   text?: string
   href?: string
   target?: string
   disabled?: boolean
+  loading?: boolean
+  enchanted?: boolean
   countdown?: number
   tip?: string
   icon?: string
@@ -56,6 +83,8 @@ const props = withDefaults(defineProps<Props>(), {
   href: '',
   target: '',
   disabled: false,
+  loading: false,
+  enchanted: false,
   countdown: 0,
   tip: '',
   icon: '',
@@ -102,14 +131,16 @@ const iconSrc = computed(() => {
 })
 
 function handleClick(e: MouseEvent) {
-  if (props.disabled || isCountingDown.value) {
+  if (props.disabled || isCountingDown.value || props.loading) {
     e.preventDefault()
     return
   }
 
   if (props.sound) {
-    if (props.variant === 'green') {
+    if (props.variant === 'green' || props.variant === 'purple' || props.variant === 'creative') {
       playSound('button')
+    } else if (props.enchanted) {
+      playSound('xp')
     } else {
       playSound('click')
     }
@@ -142,11 +173,12 @@ function handleClick(e: MouseEvent) {
 
 .oreui-btn-tooltip {
   position: absolute;
-  top: -30px;
+  top: -32px;
   left: 50%;
   transform: translateX(-50%);
-  background-color: #1F1F1F;
-  border: 1px solid #58585A;
+  background-color: #100C1C;
+  border: 2px solid #5000FF;
+  box-shadow: 0 0 8px rgba(0, 0, 0, 0.8);
   color: #FFFFFF;
   font-family: var(--font-noto-bold);
   font-size: 12px;
@@ -154,9 +186,9 @@ function handleClick(e: MouseEvent) {
   white-space: nowrap;
   opacity: 0;
   visibility: hidden;
-  transition: opacity 0.2s ease;
+  transition: opacity 0.15s ease;
   pointer-events: none;
-  z-index: 10;
+  z-index: 100;
 }
 
 .oreui-btn-wrapper:hover .oreui-btn-tooltip {

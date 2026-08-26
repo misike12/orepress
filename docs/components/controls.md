@@ -1,6 +1,6 @@
 # Form Controls
 
-Includes Checkbox, Dual-state Sliding Switch, Continuous/Segmented Slider, Dropdown Select, and Text Inputs.
+Includes Checkbox, Radio Button, Dual-state Sliding Switch, Continuous/Segmented Slider, Dropdown Select, and Text Inputs.
 
 ---
 
@@ -18,6 +18,33 @@ Includes Checkbox, Dual-state Sliding Switch, Continuous/Segmented Slider, Dropd
 ```vue
 <template>
   <OreCheckbox v-model="isChecked" label="Enable Multi-Sample Anti-Aliasing (MSAA)" />
+</template>
+```
+
+---
+
+## 🔘 Radio Buttons
+
+Supports single selection with authentic Bedrock green square dot indicators and click audio:
+
+<OreDisplay title="Radio Selection Group">
+  <OreRadioGroup model-value="hard">
+    <OreRadio value="peaceful" label="Peaceful" />
+    <OreRadio value="easy" label="Easy" />
+    <OreRadio value="normal" label="Normal" />
+    <OreRadio value="hard" label="Hard" />
+    <OreRadio value="hardcore" disabled label="Hardcore (Locked)" />
+  </OreRadioGroup>
+</OreDisplay>
+
+```vue
+<template>
+  <OreRadioGroup v-model="difficulty" direction="vertical">
+    <OreRadio value="peaceful" label="Peaceful" />
+    <OreRadio value="easy" label="Easy" />
+    <OreRadio value="normal" label="Normal" />
+    <OreRadio value="hard" label="Hard" />
+  </OreRadioGroup>
 </template>
 ```
 

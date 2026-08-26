@@ -6,6 +6,27 @@ Version history and release notes for the OreUI VitePress Theme.
 
 ---
 
+## <OreBadge type="release">Release</OreBadge> v1.1.0 (2026-08-26)
+
+### 🚀 New Components & Major Enhancements
+- **Category Tabs (`OreTabs`)**: Bedrock style segmented category navigation with 3D bevels, active indicator, icons, and drawer click sound feedback.
+- **Collapsible Drawers (`OreAccordion`)**: Expandable settings drawer panels with rotating indicator arrow and drawer sound effects.
+- **Minecraft XP Bar & Progress Indicators (`OreProgress`)**: Authentic pulsing neon green Minecraft XP Bar (with level badges), segmented boss health bars, and striped progress bars.
+- **Item Tooltip Box (`OreTooltip`)**: Authentic Minecraft double-bordered violet gradient item tooltip box with multi-position support.
+- **Container Cards (`OreCard`)**: Minecraft window cards with titlebar, subtitle, icons, tag slots, and 3D bevel borders.
+- **Keyboard Hotkey Badges (`OreKbd`)**: Bedrock style keyboard key indicators (`[ESC]`, `[E]`, `[F3]`).
+- **Radio Buttons (`OreRadio` & `OreRadioGroup`)**: Authentic single selection group with square dot indicators and click audio.
+- **Expanded Button Variants (`OreButton`)**:
+  - Added `purple` (Creative/Marketplace), `blue` (Info), `gold` (Warning), `dark` (Dark Stone), `ghost` (Flat) variants.
+  - Added `loading` state with animated Bedrock spinner.
+  - Added `enchanted` Minecraft shimmer foil glint overlay.
+  - Added `size="icon"` square button dimensions.
+- **Form Controls & Slider Engine**: Complete pointer drag support, internal state fallback, step clamping, and reactive sound synchronization.
+- **Minecraft Formatting Colors**: Added utility CSS classes for all 16 Minecraft color codes (`.mc-color-gold`, `.mc-color-aqua`, etc.).
+- **Global Theme Registration**: All new components registered globally and exported from theme index.
+
+---
+
 ## <OreBadge type="release">Release</OreBadge> v1.0.0 (2026-08-25)
 
 ### ✨ Features & Architecture

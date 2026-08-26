@@ -142,6 +142,177 @@
     inset -3px -3px rgba(255, 255, 255, 0.4);
 }
 
+/* Purple / Creative Button */
+.oreui-btn.variant-purple,
+.oreui-btn.variant-creative {
+  border: 2px solid #230838;
+  background-color: #6C2B9A;
+  box-shadow:
+    inset 0 -4px #421266,
+    inset 3px 3px rgba(255, 255, 255, 0.3),
+    inset -3px -7px rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.oreui-btn.variant-purple:hover:not(:disabled):not(.is-disabled),
+.oreui-btn.variant-creative:hover:not(:disabled):not(.is-disabled) {
+  background-color: #8339B8;
+  box-shadow:
+    inset 0 -4px #421266,
+    inset 3px 3px rgba(255, 255, 255, 0.5),
+    inset -3px -7px rgba(255, 255, 255, 0.3);
+}
+
+.oreui-btn.variant-purple:active:not(:disabled):not(.is-disabled),
+.oreui-btn.variant-creative:active:not(:disabled):not(.is-disabled) {
+  background-color: #511A79;
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.5),
+    inset -3px -3px rgba(255, 255, 255, 0.3);
+}
+
+/* Blue / Info Button */
+.oreui-btn.variant-blue,
+.oreui-btn.variant-info {
+  border: 2px solid #0E2A54;
+  background-color: #2364B8;
+  box-shadow:
+    inset 0 -4px #123C75,
+    inset 3px 3px rgba(255, 255, 255, 0.3),
+    inset -3px -7px rgba(255, 255, 255, 0.15);
+  color: #FFFFFF;
+}
+
+.oreui-btn.variant-blue:hover:not(:disabled):not(.is-disabled),
+.oreui-btn.variant-info:hover:not(:disabled):not(.is-disabled) {
+  background-color: #347ADB;
+  box-shadow:
+    inset 0 -4px #123C75,
+    inset 3px 3px rgba(255, 255, 255, 0.5),
+    inset -3px -7px rgba(255, 255, 255, 0.3);
+}
+
+.oreui-btn.variant-blue:active:not(:disabled):not(.is-disabled),
+.oreui-btn.variant-info:active:not(:disabled):not(.is-disabled) {
+  background-color: #1A4E94;
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.5),
+    inset -3px -3px rgba(255, 255, 255, 0.3);
+}
+
+/* Gold / Yellow Button */
+.oreui-btn.variant-gold,
+.oreui-btn.variant-yellow {
+  border: 2px solid #4A3A05;
+  background-color: #D4A017;
+  box-shadow:
+    inset 0 -4px #8B670A,
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -7px rgba(255, 255, 255, 0.2);
+  color: #1E1E1F;
+  text-shadow: 0 1px rgba(255, 255, 255, 0.4);
+}
+
+.oreui-btn.variant-gold:hover:not(:disabled):not(.is-disabled),
+.oreui-btn.variant-yellow:hover:not(:disabled):not(.is-disabled) {
+  background-color: #EDB422;
+  box-shadow:
+    inset 0 -4px #8B670A,
+    inset 3px 3px rgba(255, 255, 255, 0.6),
+    inset -3px -7px rgba(255, 255, 255, 0.4);
+}
+
+.oreui-btn.variant-gold:active:not(:disabled):not(.is-disabled),
+.oreui-btn.variant-yellow:active:not(:disabled):not(.is-disabled) {
+  background-color: #B5850E;
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.6),
+    inset -3px -3px rgba(255, 255, 255, 0.4);
+}
+
+/* Dark Button */
+.oreui-btn.variant-dark {
+  border: 2px solid #141415;
+  background-color: #313233;
+  box-shadow:
+    inset 0 -4px #1E1E1F,
+    inset 3px 3px rgba(255, 255, 255, 0.15),
+    inset -3px -7px rgba(255, 255, 255, 0.08);
+  color: #FFFFFF;
+}
+
+.oreui-btn.variant-dark:hover:not(:disabled):not(.is-disabled) {
+  background-color: #434446;
+  box-shadow:
+    inset 0 -4px #1E1E1F,
+    inset 3px 3px rgba(255, 255, 255, 0.3),
+    inset -3px -7px rgba(255, 255, 255, 0.18);
+}
+
+.oreui-btn.variant-dark:active:not(:disabled):not(.is-disabled) {
+  background-color: #242526;
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.3),
+    inset -3px -3px rgba(255, 255, 255, 0.18);
+}
+
+/* Ghost / Flat Button */
+.oreui-btn.variant-ghost {
+  border: 2px solid transparent;
+  background-color: transparent;
+  box-shadow: none;
+  color: #FFFFFF;
+}
+
+.oreui-btn.variant-ghost:hover:not(:disabled):not(.is-disabled) {
+  border: 2px solid #58585A;
+  background-color: rgba(255, 255, 255, 0.1);
+  box-shadow: inset 0 -4px #3A3A3C, inset 2px 2px rgba(255, 255, 255, 0.3);
+}
+
+.oreui-btn.variant-ghost:active:not(:disabled):not(.is-disabled) {
+  background-color: rgba(0, 0, 0, 0.3);
+  box-shadow: inset 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+/* Button Icon Only (Square) */
+.oreui-btn.size-icon {
+  width: 42px;
+  height: 42px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.oreui-btn.size-icon-sm {
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Focus Outline for Keyboard Navigation */
+.oreui-btn:focus-visible {
+  outline: 2px dashed #FFFFFF;
+  outline-offset: 2px;
+}
+
+/* Loading Spinner within Button */
+.oreui-btn-spinner {
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border: 2px solid rgba(255, 255, 255, 0.4);
+  border-top-color: #FFFFFF;
+  border-radius: 50%;
+  animation: oreSpin 0.8s linear infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
 /* Disabled Button */
 .oreui-btn:disabled,
 .oreui-btn.is-disabled {
@@ -781,3 +952,94 @@
   text-align: center;
   margin-bottom: 16px;
 }
+
+/* --------------------------------------------------------------------------
+   Minecraft Formatting Colors (§0 - §f)
+   -------------------------------------------------------------------------- */
+.mc-color-black        { color: #000000; }
+.mc-color-dark-blue   { color: #0000AA; }
+.mc-color-dark-green  { color: #00AA00; }
+.mc-color-dark-aqua   { color: #00AAAA; }
+.mc-color-dark-red    { color: #AA0000; }
+.mc-color-dark-purple { color: #AA00AA; }
+.mc-color-gold        { color: #FFAA00; }
+.mc-color-gray        { color: #AAAAAA; }
+.mc-color-dark-gray   { color: #555555; }
+.mc-color-blue        { color: #5555FF; }
+.mc-color-green       { color: #55FF55; }
+.mc-color-aqua        { color: #55FFFF; }
+.mc-color-red         { color: #FF5555; }
+.mc-color-light-purple{ color: #FF55FF; }
+.mc-color-yellow      { color: #FFFF55; }
+.mc-color-white       { color: #FFFFFF; }
+
+/* --------------------------------------------------------------------------
+   Minecraft Enchanted Item Shimmer Foil
+   -------------------------------------------------------------------------- */
+.mc-enchanted-foil {
+  position: relative;
+  overflow: hidden;
+}
+
+.mc-enchanted-foil::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: linear-gradient(
+    135deg,
+    rgba(128, 0, 255, 0) 0%,
+    rgba(170, 0, 255, 0.4) 25%,
+    rgba(255, 0, 255, 0.6) 50%,
+    rgba(170, 0, 255, 0.4) 75%,
+    rgba(128, 0, 255, 0) 100%
+  );
+  background-size: 200% 200%;
+  animation: mcEnchantedGlint 3s linear infinite;
+  mix-blend-mode: color-dodge;
+  pointer-events: none;
+  border-radius: inherit;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI 3D Bevel Utilities
+   -------------------------------------------------------------------------- */
+.oreui-bevel-raised {
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 0 -4px #58585A, inset 2px 2px rgba(255, 255, 255, 0.6), inset -2px -6px rgba(255, 255, 255, 0.4);
+}
+
+.oreui-bevel-sunken {
+  border: 2px solid #1E1E1F;
+  box-shadow: inset 0 4px #242425, inset 2px 2px rgba(0, 0, 0, 0.4);
+}
+
+.oreui-bevel-flat {
+  border: 2px solid #58585A;
+}
+
+/* --------------------------------------------------------------------------
+   OreUI Custom Dark Scrollbar
+   -------------------------------------------------------------------------- */
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+
+::-webkit-scrollbar-track {
+  background: #1e1e1f;
+  border-left: 1px solid #313233;
+}
+
+::-webkit-scrollbar-thumb {
+  background: #58585a;
+  border: 2px solid #1e1e1f;
+  box-shadow: inset 1px 1px rgba(255, 255, 255, 0.3);
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: #8c8d90;
+}
+
