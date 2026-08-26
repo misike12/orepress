@@ -18,12 +18,12 @@
         v-for="opt in normalizedOptions"
         :key="opt.value"
         class="oreui-dropdown-option"
-        :class="{ 'is-selected': opt.value === modelValue }"
+        :class="{ 'is-selected': opt.value === innerValue }"
         @click="selectOption(opt.value)"
       >
         <span>{{ opt.label }}</span>
         <img
-          v-if="opt.value === modelValue"
+          v-if="opt.value === innerValue"
           src="/check_white.png"
           class="oreui-dropdown-check"
           alt="✓"
@@ -34,7 +34,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onMounted, onUnmounted } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { playSound } from '../composables/useSound'
 
 interface OptionItem {
@@ -61,6 +61,17 @@ const emit = defineEmits<{
   (e: 'change', value: string | number): void
 }>()
 
+const innerValue = ref<string | number>(props.modelValue)
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val !== undefined && val !== innerValue.value) {
+      innerValue.value = val
+    }
+  }
+)
+
 const isOpen = ref(false)
 
 const normalizedOptions = computed<OptionItem[]>(() => {
@@ -73,8 +84,8 @@ const normalizedOptions = computed<OptionItem[]>(() => {
 })
 
 const selectedLabel = computed(() => {
-  const match = normalizedOptions.value.find((opt) => opt.value === props.modelValue)
-  return match ? match.label : 'Select an option...'
+  const match = normalizedOptions.value.find((opt) => opt.value === innerValue.value)
+  return match ? match.label : (normalizedOptions.value[0]?.label || 'Select an option...')
 })
 
 function toggleOpen(e: MouseEvent) {
@@ -90,6 +101,7 @@ function selectOption(val: string | number) {
   if (props.sound) {
     playSound('click')
   }
+  innerValue.value = val
   isOpen.value = false
   emit('update:modelValue', val)
   emit('change', val)

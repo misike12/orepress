@@ -3,7 +3,7 @@
     <input
       v-if="!textarea"
       :type="type"
-      :value="modelValue"
+      :value="innerValue"
       :placeholder="placeholder"
       :disabled="disabled"
       class="oreui-input"
@@ -13,7 +13,7 @@
     />
     <textarea
       v-else
-      :value="modelValue"
+      :value="innerValue"
       :placeholder="placeholder"
       :disabled="disabled"
       :rows="rows"
@@ -27,6 +27,8 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue'
+
 interface Props {
   modelValue?: string | number
   type?: string
@@ -36,7 +38,7 @@ interface Props {
   rows?: number
 }
 
-withDefaults(defineProps<Props>(), {
+const props = withDefaults(defineProps<Props>(), {
   modelValue: '',
   type: 'text',
   placeholder: '',
@@ -51,8 +53,20 @@ const emit = defineEmits<{
   (e: 'blur', event: FocusEvent): void
 }>()
 
+const innerValue = ref(props.modelValue)
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val !== undefined && val !== innerValue.value) {
+      innerValue.value = val
+    }
+  }
+)
+
 function handleInput(e: Event) {
   const target = e.target as HTMLInputElement | HTMLTextAreaElement
+  innerValue.value = target.value
   emit('update:modelValue', target.value)
 }
 

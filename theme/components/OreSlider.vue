@@ -4,8 +4,8 @@
     <div
       ref="trackRef"
       class="oreui-slider-track"
-      @mousedown="startDrag"
-      @click="handleClick"
+      :class="{ 'is-dragging': isDragging }"
+      @pointerdown="handlePointerDown"
     >
       <div
         class="oreui-slider-progress"
@@ -13,7 +13,7 @@
       ></div>
 
       <!-- Segment marks if steps provided -->
-      <template v-if="step && stepCount > 1 && stepCount < 20">
+      <template v-if="step && stepCount > 1 && stepCount < 30">
         <div
           v-for="idx in stepCount - 1"
           :key="idx"
@@ -24,6 +24,7 @@
 
       <div
         class="oreui-slider-thumb"
+        :class="{ 'is-active': isDragging }"
         :style="{ left: `${percentage}%` }"
       ></div>
     </div>
@@ -34,7 +35,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onUnmounted } from 'vue'
+import { computed, ref, watch, onUnmounted } from 'vue'
 import { playSound } from '../composables/useSound'
 
 interface Props {
@@ -66,39 +67,64 @@ const emit = defineEmits<{
   (e: 'change', value: number): void
 }>()
 
+const innerValue = ref<number>(props.modelValue)
+
+watch(
+  () => props.modelValue,
+  (newVal) => {
+    if (newVal !== undefined && newVal !== innerValue.value) {
+      innerValue.value = newVal
+    }
+  }
+)
+
 const trackRef = ref<HTMLElement | null>(null)
-let isDragging = false
+const isDragging = ref(false)
 
 const stepCount = computed(() => {
-  if (!props.step) return 0
+  if (!props.step || props.step <= 0) return 0
   return Math.floor((props.max - props.min) / props.step) + 1
 })
 
 const percentage = computed(() => {
   const range = props.max - props.min
   if (range <= 0) return 0
-  const clamped = Math.max(props.min, Math.min(props.max, props.modelValue))
+  const clamped = Math.max(props.min, Math.min(props.max, innerValue.value))
   return ((clamped - props.min) / range) * 100
 })
 
 const displayValue = computed(() => {
-  return `${props.modelValue}${props.unit}`
+  return `${innerValue.value}${props.unit}`
 })
 
-function updateFromMouse(e: MouseEvent) {
-  if (!trackRef.value || props.disabled) return
+function calculateValue(clientX: number): number {
+  if (!trackRef.value || props.disabled) return innerValue.value
   const rect = trackRef.value.getBoundingClientRect()
-  const offsetX = Math.max(0, Math.min(rect.width, e.clientX - rect.left))
+  if (rect.width <= 0) return innerValue.value
+
+  const offsetX = Math.max(0, Math.min(rect.width, clientX - rect.left))
   const ratio = offsetX / rect.width
   let rawVal = props.min + ratio * (props.max - props.min)
 
-  if (props.step > 0) {
-    rawVal = Math.round(rawVal / props.step) * props.step
+  if (props.step && props.step > 0) {
+    const steps = Math.round((rawVal - props.min) / props.step)
+    rawVal = props.min + steps * props.step
   }
 
-  const finalVal = Math.max(props.min, Math.min(props.max, Number(rawVal.toFixed(2))))
-  if (finalVal !== props.modelValue) {
-    if (props.sound && Math.abs(finalVal - props.modelValue) >= props.step) {
+  const stepStr = props.step.toString()
+  const precision = stepStr.includes('.') ? stepStr.split('.')[1].length : 0
+  const rounded = Number(rawVal.toFixed(Math.max(precision, 0)))
+
+  return Math.max(props.min, Math.min(props.max, rounded))
+}
+
+function updateFromEvent(e: PointerEvent | MouseEvent) {
+  if (props.disabled) return
+  const finalVal = calculateValue(e.clientX)
+  if (finalVal !== innerValue.value) {
+    const prev = innerValue.value
+    innerValue.value = finalVal
+    if (props.sound && prev !== finalVal) {
       playSound('click')
     }
     emit('update:modelValue', finalVal)
@@ -106,33 +132,40 @@ function updateFromMouse(e: MouseEvent) {
   }
 }
 
-function handleClick(e: MouseEvent) {
-  updateFromMouse(e)
-}
-
-function startDrag(e: MouseEvent) {
+function handlePointerDown(e: PointerEvent) {
   if (props.disabled) return
-  isDragging = true
-  updateFromMouse(e)
-  window.addEventListener('mousemove', onDrag)
-  window.addEventListener('mouseup', stopDrag)
+  isDragging.value = true
+  updateFromEvent(e)
+
+  if (typeof window !== 'undefined') {
+    window.addEventListener('pointermove', onPointerMove)
+    window.addEventListener('pointerup', onPointerUp)
+    window.addEventListener('pointercancel', onPointerUp)
+  }
 }
 
-function onDrag(e: MouseEvent) {
-  if (!isDragging) return
-  updateFromMouse(e)
+function onPointerMove(e: PointerEvent) {
+  if (!isDragging.value) return
+  updateFromEvent(e)
 }
 
-function stopDrag() {
-  if (isDragging) {
-    isDragging = false
-    window.removeEventListener('mousemove', onDrag)
-    window.removeEventListener('mouseup', stopDrag)
+function onPointerUp(e: PointerEvent) {
+  if (isDragging.value) {
+    isDragging.value = false
+    if (typeof window !== 'undefined') {
+      window.removeEventListener('pointermove', onPointerMove)
+      window.removeEventListener('pointerup', onPointerUp)
+      window.removeEventListener('pointercancel', onPointerUp)
+    }
   }
 }
 
 onUnmounted(() => {
-  stopDrag()
+  if (typeof window !== 'undefined') {
+    window.removeEventListener('pointermove', onPointerMove)
+    window.removeEventListener('pointerup', onPointerUp)
+    window.removeEventListener('pointercancel', onPointerUp)
+  }
 })
 </script>
 
@@ -146,6 +179,7 @@ onUnmounted(() => {
   margin: 10px 0;
   font-family: var(--font-noto-bold);
   user-select: none;
+  touch-action: none;
 }
 
 .oreui-slider-container.is-disabled {
@@ -167,6 +201,7 @@ onUnmounted(() => {
   height: 8px;
   position: relative;
   flex: 1;
+  touch-action: none;
 }
 
 .oreui-slider-progress {
@@ -176,6 +211,7 @@ onUnmounted(() => {
   left: 0;
   top: 0;
   box-shadow: inset 2px 2px rgba(255, 255, 255, 0.4), inset -2px -2px rgba(255, 255, 255, 0.2);
+  pointer-events: none;
 }
 
 .oreui-slider-thumb {
@@ -189,10 +225,13 @@ onUnmounted(() => {
   transform: translate(-50%, -50%);
   cursor: pointer;
   z-index: 2;
+  transition: background-color 0.1s ease;
+  touch-action: none;
 }
 
 .oreui-slider-thumb:hover,
-.oreui-slider-track:hover .oreui-slider-thumb {
+.oreui-slider-track:hover .oreui-slider-thumb,
+.oreui-slider-thumb.is-active {
   background-color: #B1B2B5;
 }
 
@@ -204,6 +243,7 @@ onUnmounted(() => {
   transform: translateY(-50%);
   width: 2px;
   z-index: 1;
+  pointer-events: none;
 }
 
 .oreui-slider-value {

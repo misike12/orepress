@@ -1,12 +1,12 @@
 <template>
   <div
     class="oreui-checkbox"
-    :class="{ 'is-checked': modelValue, 'is-disabled': disabled }"
+    :class="{ 'is-checked': innerValue, 'is-disabled': disabled }"
     @click="toggle"
   >
     <div class="oreui-checkbox-box">
       <img
-        v-if="modelValue"
+        v-if="innerValue"
         src="/check_white.png"
         class="oreui-checkbox-mark"
         alt="Checked"
@@ -19,6 +19,7 @@
 </template>
 
 <script setup lang="ts">
+import { ref, watch } from 'vue'
 import { playSound } from '../composables/useSound'
 
 interface Props {
@@ -40,9 +41,21 @@ const emit = defineEmits<{
   (e: 'change', value: boolean): void
 }>()
 
+const innerValue = ref(props.modelValue)
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val !== undefined && val !== innerValue.value) {
+      innerValue.value = val
+    }
+  }
+)
+
 function toggle() {
   if (props.disabled) return
-  const next = !props.modelValue
+  const next = !innerValue.value
+  innerValue.value = next
   if (props.sound) {
     playSound('click')
   }

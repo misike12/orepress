@@ -3,7 +3,7 @@
     <div
       class="oreui-switch"
       :class="{
-        'is-on': modelValue,
+        'is-on': innerValue,
         'is-disabled': disabled,
         'bounce-left': bounceLeft,
         'bounce-right': bounceRight
@@ -29,7 +29,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref } from 'vue'
+import { ref, watch, onUnmounted } from 'vue'
 import { playSound } from '../composables/useSound'
 
 interface Props {
@@ -51,23 +51,40 @@ const emit = defineEmits<{
   (e: 'change', value: boolean): void
 }>()
 
+const innerValue = ref(props.modelValue)
+
+watch(
+  () => props.modelValue,
+  (val) => {
+    if (val !== undefined && val !== innerValue.value) {
+      innerValue.value = val
+    }
+  }
+)
+
 const bounceLeft = ref(false)
 const bounceRight = ref(false)
+let bounceTimer: ReturnType<typeof setTimeout> | null = null
 
 function toggle() {
   if (props.disabled) return
-  const next = !props.modelValue
+  const next = !innerValue.value
+  innerValue.value = next
+
+  if (bounceTimer) {
+    clearTimeout(bounceTimer)
+  }
 
   if (next) {
     bounceRight.value = true
     bounceLeft.value = false
-    setTimeout(() => {
+    bounceTimer = setTimeout(() => {
       bounceRight.value = false
     }, 350)
   } else {
     bounceLeft.value = true
     bounceRight.value = false
-    setTimeout(() => {
+    bounceTimer = setTimeout(() => {
       bounceLeft.value = false
     }, 350)
   }
@@ -79,6 +96,12 @@ function toggle() {
   emit('update:modelValue', next)
   emit('change', next)
 }
+
+onUnmounted(() => {
+  if (bounceTimer) {
+    clearTimeout(bounceTimer)
+  }
+})
 </script>
 
 <style scoped>
@@ -108,7 +131,7 @@ function toggle() {
 }
 
 .oreui-switch.is-disabled {
-  background-color: #D0D1D4;
+  background: #D0D1D4;
   border-color: #8C8D90;
   cursor: not-allowed;
 }
@@ -157,5 +180,13 @@ function toggle() {
   cursor: pointer;
   font-size: 14px;
   color: var(--vp-c-text-1);
+}
+
+.oreui-switch.bounce-left {
+  animation: bounce_right 175ms ease-in-out 2;
+}
+
+.oreui-switch.bounce-right {
+  animation: bounce_left 175ms ease-in-out 2;
 }
 </style>
