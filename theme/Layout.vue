@@ -24,13 +24,28 @@ import { preloadSounds, playSound } from './composables/useSound'
 onMounted(() => {
   preloadSounds()
 
-  // Global listener for sound effects on standard links/buttons if desired
-  document.addEventListener('click', (e) => {
-    const target = (e.target as HTMLElement).closest('a, .VPSidebarItem, .VPNavBarMenuLink')
-    if (target) {
-      playSound('click')
-    }
-  })
+  // Native Global listener for sound effects on all VitePress interactive elements
+  if (typeof document !== 'undefined') {
+    document.addEventListener('click', (e) => {
+      const el = e.target as HTMLElement | null
+      if (!el) return
+
+      // Green primary buttons / Next page button -> primary button sound
+      if (el.closest('.pager-link.next, .VPButton.brand, .variant-green, .variant-purple')) {
+        playSound('button')
+        return
+      }
+
+      // Generic links, prev page, sidebar, navbar, copy buttons -> click sound
+      if (
+        el.closest(
+          '.pager-link.prev, .VPButton.alt, .VPSidebarItem, .VPNavBarMenuLink, .VPMenuLink, .outline-link, .edit-link-button, .copy, .DocSearch-Button, .VPNavBarSearchButton'
+        )
+      ) {
+        playSound('click')
+      }
+    })
+  }
 })
 </script>
 

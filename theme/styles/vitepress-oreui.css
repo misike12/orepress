@@ -1,5 +1,5 @@
 /* ==========================================================================
-   VitePress Overrides with OreUI Aesthetic
+   VitePress Native Overrides with Complete OreUI & Minecraft Bedrock Aesthetic
    ========================================================================== */
 
 /* Overall Page & Typography */
@@ -18,6 +18,7 @@ body {
   padding-bottom: 8px;
   margin-top: 1.5rem;
   margin-bottom: 1.5rem;
+  text-shadow: 2px 2px #000000;
 }
 
 .vp-doc h2 {
@@ -27,6 +28,7 @@ body {
   padding-bottom: 6px;
   margin-top: 2rem;
   margin-bottom: 1rem;
+  color: #FFFFFF;
 }
 
 .vp-doc h3 {
@@ -34,6 +36,7 @@ body {
   font-size: 1.25rem;
   margin-top: 1.5rem;
   margin-bottom: 0.8rem;
+  color: #D0D1D4;
 }
 
 .vp-doc h4, .vp-doc h5, .vp-doc h6 {
@@ -54,35 +57,111 @@ body {
   border-bottom-color: #6CC349;
 }
 
-/* Navbar */
+/* ==========================================================================
+   Navbar
+   ========================================================================== */
 .VPNav {
-  background-color: var(--vp-nav-bg-color) !important;
+  background-color: rgba(30, 30, 31, 0.95) !important;
   border-bottom: 2px solid #1E1E1F !important;
-  box-shadow: 0 4px 0 #242425;
+  box-shadow: 0 4px 0 #242425 !important;
+  backdrop-filter: blur(10px) !important;
 }
 
 .VPNavBarTitle .title {
   font-family: var(--font-mc-ten) !important;
   font-size: 1.35rem !important;
   letter-spacing: 0.5px;
+  color: #FFFFFF !important;
+  text-shadow: 2px 2px #000000;
 }
 
 .VPNavBarMenuLink {
   font-family: var(--font-mc-seven) !important;
   font-size: 0.95rem !important;
+  color: #D0D1D4 !important;
+  padding: 4px 10px !important;
+  border: 1px solid transparent;
+  transition: all 0.1s ease;
 }
 
-/* Sidebar */
+.VPNavBarMenuLink:hover {
+  color: #FFFFFF !important;
+  background-color: #48494A !important;
+  border: 1px solid #58585A !important;
+}
+
+.VPNavBarMenuLink.active {
+  color: #55FF55 !important;
+  border-bottom: 2px solid #3C8527 !important;
+}
+
+/* Dropdowns / Flyout menus */
+.VPFlyout,
+.VPMenu {
+  background-color: #313233 !important;
+  border: 2px solid #1E1E1F !important;
+  box-shadow:
+    inset 0 2px rgba(255, 255, 255, 0.15),
+    0 8px 16px rgba(0, 0, 0, 0.7) !important;
+  border-radius: 0 !important;
+}
+
+.VPMenuLink {
+  font-family: var(--font-noto-bold) !important;
+  font-size: 13px !important;
+  color: #D0D1D4 !important;
+  border-radius: 0 !important;
+}
+
+.VPMenuLink:hover,
+.VPMenuLink.active {
+  background-color: #3C8527 !important;
+  color: #FFFFFF !important;
+}
+
+/* Search Box */
+.DocSearch-Button,
+.VPNavBarSearchButton {
+  background-color: #1E1E1F !important;
+  border: 2px solid #48494A !important;
+  border-radius: 0 !important;
+  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
+  color: #D0D1D4 !important;
+  font-family: var(--font-noto-bold) !important;
+}
+
+.DocSearch-Button:hover,
+.VPNavBarSearchButton:hover {
+  border-color: #6CC349 !important;
+  color: #FFFFFF !important;
+}
+
+/* ==========================================================================
+   Sidebar
+   ========================================================================== */
 .VPSidebar {
-  background-color: var(--vp-sidebar-bg-color) !important;
+  background-color: #242526 !important;
   border-right: 2px solid #1E1E1F !important;
-  box-shadow: 4px 0 0 rgba(0, 0, 0, 0.2);
+  box-shadow: 4px 0 0 rgba(0, 0, 0, 0.25) !important;
+}
+
+.VPSidebarGroup {
+  border-bottom: 1px solid #313233;
+  padding-bottom: 8px;
+  margin-bottom: 8px;
+}
+
+.VPSidebarGroup .title-text {
+  font-family: var(--font-mc-seven) !important;
+  font-size: 0.92rem !important;
+  color: #FFE866 !important;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
 }
 
 .VPSidebarItem.level-0 > .item .text {
   font-family: var(--font-mc-seven) !important;
   font-size: 0.95rem !important;
-  font-weight: bold;
   color: #FFFFFF !important;
 }
 
@@ -90,14 +169,269 @@ body {
 .VPSidebarItem.level-2 .text,
 .VPSidebarItem.level-3 .text {
   font-family: var(--font-noto-bold) !important;
-  font-size: 0.85rem !important;
+  font-size: 0.88rem !important;
+  color: #B1B2B5 !important;
 }
 
-.VPSidebarItem.is-active > .item .text {
-  color: #6CC349 !important;
+.VPSidebarItem:hover .text {
+  color: #FFFFFF !important;
 }
 
-/* Custom Blocks (Tip, Warning, Danger, Info, Details) */
+.VPSidebarItem.is-active > .item {
+  background-color: rgba(60, 133, 39, 0.25) !important;
+  border-left: 4px solid #3C8527 !important;
+}
+
+.VPSidebarItem.is-active .text {
+  color: #55FF55 !important;
+  font-weight: 700 !important;
+}
+
+/* ==========================================================================
+   Table of Contents (On this page)
+   ========================================================================== */
+.VPDocAsideOutline .outline-title {
+  font-family: var(--font-mc-seven) !important;
+  font-size: 0.9rem !important;
+  color: #FFE866 !important;
+  text-transform: uppercase;
+}
+
+.outline-link {
+  font-family: var(--font-noto) !important;
+  font-size: 13px !important;
+  color: #B1B2B5 !important;
+  transition: all 0.1s ease;
+}
+
+.outline-link:hover {
+  color: #FFFFFF !important;
+}
+
+.outline-link.active {
+  color: #55FF55 !important;
+  font-weight: 700;
+}
+
+.outline-marker {
+  background-color: #3C8527 !important;
+  width: 3px !important;
+}
+
+/* ==========================================================================
+   Home Page Hero & Features & VPButton
+   ========================================================================== */
+.VPButton {
+  border-radius: 0 !important;
+  font-family: var(--font-mc-seven) !important;
+  font-size: 14px !important;
+  user-select: none !important;
+  transition: all 0.1s ease !important;
+  text-decoration: none !important;
+}
+
+/* Brand Button (Green Minecraft Bevel Button) */
+.VPButton.brand {
+  background-color: #3C8527 !important;
+  border: 2px solid #1E1E1F !important;
+  box-shadow:
+    inset 0 -4px #1D4D13,
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -7px rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+  text-shadow: 1px 1px #000000 !important;
+}
+
+.VPButton.brand:hover {
+  background-color: #2A641C !important;
+  box-shadow:
+    inset 0 -4px #1D4D13,
+    inset 3px 3px rgba(255, 255, 255, 0.6),
+    inset -3px -7px rgba(255, 255, 255, 0.4) !important;
+}
+
+.VPButton.brand:active {
+  background-color: #1D4D13 !important;
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -3px rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(2px) !important;
+}
+
+/* Alt Button (Gray Minecraft Bevel Button) */
+.VPButton.alt {
+  background-color: #58585A !important;
+  border: 2px solid #1E1E1F !important;
+  box-shadow:
+    inset 0 -4px #3A3A3C,
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -7px rgba(255, 255, 255, 0.2) !important;
+  color: #FFFFFF !important;
+}
+
+.VPButton.alt:hover {
+  background-color: #707174 !important;
+  box-shadow:
+    inset 0 -4px #3A3A3C,
+    inset 3px 3px rgba(255, 255, 255, 0.6),
+    inset -3px -7px rgba(255, 255, 255, 0.4) !important;
+}
+
+.VPButton.alt:active {
+  background-color: #313233 !important;
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -3px rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(2px) !important;
+}
+
+/* Feature Cards */
+.VPFeature {
+  background-color: #313233 !important;
+  border: 2px solid #1E1E1F !important;
+  border-radius: 0 !important;
+  box-shadow:
+    inset 0 2px rgba(255, 255, 255, 0.1),
+    0 4px 8px rgba(0, 0, 0, 0.4) !important;
+  transition: all 0.15s ease !important;
+}
+
+.VPFeature:hover {
+  border-color: #8C8D90 !important;
+  transform: translateY(-2px) !important;
+  background-color: #3a3b3d !important;
+}
+
+.VPFeature .title {
+  font-family: var(--font-mc-seven) !important;
+  font-size: 1.15rem !important;
+  color: #FFFFFF !important;
+}
+
+.VPFeature .details {
+  font-family: var(--font-noto) !important;
+  font-size: 13.5px !important;
+  color: #D0D1D4 !important;
+  line-height: 1.6 !important;
+}
+
+/* ==========================================================================
+   Document Footer Navigation (Previous / Next Page Buttons)
+   ========================================================================== */
+.VPDocFooter .prev-next {
+  border-top: 2px solid #1E1E1F !important;
+  padding-top: 24px !important;
+  margin-top: 32px !important;
+}
+
+.VPDocFooter .pager-link {
+  display: inline-flex !important;
+  flex-direction: column !important;
+  justify-content: center !important;
+  min-height: 52px !important;
+  padding: 10px 18px !important;
+  border: 2px solid #1E1E1F !important;
+  border-radius: 0 !important;
+  font-family: var(--font-noto-bold) !important;
+  user-select: none !important;
+  text-decoration: none !important;
+  transition: all 0.1s ease !important;
+}
+
+/* Previous Page Button (Gray Bevel Button) */
+.VPDocFooter .pager-link.prev {
+  background-color: #58585A !important;
+  box-shadow:
+    inset 0 -4px #3A3A3C,
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -7px rgba(255, 255, 255, 0.2) !important;
+  align-items: flex-start !important;
+  text-align: left !important;
+}
+
+.VPDocFooter .pager-link.prev:hover {
+  background-color: #707174 !important;
+  box-shadow:
+    inset 0 -4px #3A3A3C,
+    inset 3px 3px rgba(255, 255, 255, 0.6),
+    inset -3px -7px rgba(255, 255, 255, 0.4) !important;
+}
+
+.VPDocFooter .pager-link.prev:active {
+  background-color: #313233 !important;
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -3px rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(2px) !important;
+}
+
+/* Next Page Button (Green Minecraft Bevel Button) */
+.VPDocFooter .pager-link.next {
+  background-color: #3C8527 !important;
+  box-shadow:
+    inset 0 -4px #1D4D13,
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -7px rgba(255, 255, 255, 0.2) !important;
+  align-items: flex-end !important;
+  text-align: right !important;
+}
+
+.VPDocFooter .pager-link.next:hover {
+  background-color: #2A641C !important;
+  box-shadow:
+    inset 0 -4px #1D4D13,
+    inset 3px 3px rgba(255, 255, 255, 0.6),
+    inset -3px -7px rgba(255, 255, 255, 0.4) !important;
+}
+
+.VPDocFooter .pager-link.next:active {
+  background-color: #1D4D13 !important;
+  box-shadow:
+    inset 3px 3px rgba(255, 255, 255, 0.4),
+    inset -3px -3px rgba(255, 255, 255, 0.3) !important;
+  transform: translateY(2px) !important;
+}
+
+.VPDocFooter .pager-link .desc {
+  font-family: var(--font-mc-seven) !important;
+  font-size: 11px !important;
+  color: rgba(255, 255, 255, 0.85) !important;
+  text-transform: uppercase !important;
+  letter-spacing: 0.5px !important;
+  margin-bottom: 2px !important;
+}
+
+.VPDocFooter .pager-link .title {
+  font-family: var(--font-mc-seven) !important;
+  font-size: 15px !important;
+  color: #FFFFFF !important;
+  font-weight: 700 !important;
+  text-shadow: 1px 1px #000000 !important;
+}
+
+/* Edit & Last Updated */
+.VPDocFooter .edit-link-button {
+  display: inline-flex !important;
+  align-items: center !important;
+  gap: 6px !important;
+  padding: 4px 10px !important;
+  background-color: #313233 !important;
+  border: 1px solid #58585A !important;
+  color: #D0D1D4 !important;
+  font-family: var(--font-noto-bold) !important;
+  font-size: 12px !important;
+  text-decoration: none !important;
+}
+
+.VPDocFooter .edit-link-button:hover {
+  background-color: #48494A !important;
+  color: #FFFFFF !important;
+  border-color: #8C8D90 !important;
+}
+
+/* ==========================================================================
+   Custom Blocks (Tip, Warning, Danger, Info, Details)
+   ========================================================================== */
 .custom-block {
   border-radius: 0 !important;
   border: 2px solid #1E1E1F !important;
@@ -142,7 +476,9 @@ body {
   border-left: 6px solid #58585A !important;
 }
 
-/* Code Blocks */
+/* ==========================================================================
+   Code Blocks & Copy Button
+   ========================================================================== */
 div[class*='language-'] {
   background-color: #1e1e24 !important;
   border: 2px solid #1E1E1F !important;
@@ -155,6 +491,30 @@ div[class*='language-'] pre {
   font-size: 13.5px !important;
 }
 
+.vp-doc [class*='language-'] > button.copy {
+  background-color: #48494A !important;
+  border: 1px solid #58585A !important;
+  border-radius: 0 !important;
+  box-shadow: inset 0 -2px #313233, inset 1px 1px rgba(255, 255, 255, 0.3) !important;
+  color: #FFFFFF !important;
+  width: 32px !important;
+  height: 32px !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  transition: all 0.1s ease !important;
+}
+
+.vp-doc [class*='language-'] > button.copy:hover {
+  background-color: #58585A !important;
+  border-color: #8C8D90 !important;
+}
+
+.vp-doc [class*='language-'] > button.copy.copied {
+  background-color: #3C8527 !important;
+  border-color: #1E1E1F !important;
+}
+
 .vp-doc :not(pre) > code {
   background-color: #1E1E1F !important;
   border: 1px solid #48494A !important;
@@ -165,7 +525,50 @@ div[class*='language-'] pre {
   border-radius: 2px !important;
 }
 
-/* Footer */
+/* ==========================================================================
+   Tables
+   ========================================================================== */
+.vp-doc table {
+  background: #1e1e24 !important;
+  border-collapse: collapse !important;
+  font-size: 13.5px !important;
+  margin: 16px 0 !important;
+  width: 100% !important;
+  color: #D0D1D4 !important;
+  box-sizing: border-box !important;
+  font-family: var(--font-noto) !important;
+  border: 2px solid #1E1E1F !important;
+}
+
+.vp-doc table thead tr {
+  background: #181a1f !important;
+  border-bottom: 2px solid #4b5263 !important;
+}
+
+.vp-doc table th {
+  color: #ffffff !important;
+  font-weight: 700 !important;
+  font-family: var(--font-noto-bold) !important;
+  padding: 12px 14px !important;
+  text-align: left !important;
+}
+
+.vp-doc table td {
+  padding: 10px 14px !important;
+  border-bottom: 1px solid #2c313c !important;
+}
+
+.vp-doc table tbody tr:hover {
+  background-color: rgba(255, 255, 255, 0.05) !important;
+}
+
+.vp-doc table tbody tr:nth-child(even) {
+  background-color: rgba(0, 0, 0, 0.15) !important;
+}
+
+/* ==========================================================================
+   Footer
+   ========================================================================== */
 .VPFooter {
   background-color: #1E1E1F !important;
   border-top: 2px solid #313233 !important;
