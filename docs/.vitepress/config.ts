@@ -2,10 +2,11 @@ import { defineConfig } from 'vitepress'
 import path from 'path'
 
 export default defineConfig({
+  base: '/orepress/',
   title: 'OreUI VitePress',
   description: 'A theme inspired by Spectrollay Ore UI & Minecraft Bedrock design system',
   head: [
-    ['link', { rel: 'icon', href: '/logo.png' }],
+    ['link', { rel: 'icon', href: '/orepress/logo.png' }],
     ['meta', { name: 'theme-color', content: '#3C8527' }]
   ],
 
