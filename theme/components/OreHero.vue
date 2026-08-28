@@ -1,7 +1,7 @@
 <template>
   <div class="oreui-hero-container">
     <div class="oreui-hero-badge-row">
-      <OreBadge type="release">v1.1.1.A Release</OreBadge>
+      <OreBadge type="release">v1.1.1.C Release</OreBadge>
       <OreTag color="green">Minecraft Bedrock Style</OreTag>
     </div>
 

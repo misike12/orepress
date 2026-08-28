@@ -6,6 +6,22 @@ Version history and release notes for the OreUI VitePress Theme.
 
 ---
 
+## <OreBadge type="release">Release</OreBadge> v1.1.1.C (2026-08-28)
+
+### 🐛 Bug Fixes
+- **Verbatum `ore-switch` port for `OreSwitch`**: The component is now a faithful katorlys/OreUI switch port with resolved hex values, and the icons (I/O glyphs) variant is the default.
+- **Navbar theme switch cleaned up**: Removed the sun/moon glyphs from the navbar light/dark toggle so it is a pure Minecraft switch (no icon).
+- **`OreSoundToggle` restyle**: Replaced the pixel-art speaker with a clean vector speaker and a raised bevel button.
+- **Button sizing & alignment**: Buttons use `nowrap` + min-width sizing so labels expand instead of wrapping; flex gap for icons/spinners; icon-only faces are dead-centered.
+- **Press-in button effect**: `.oreui-btn` now presses via `translateY` instead of `height`/`margin-top`, so pressing a button inside the `OreNavbar` no longer shifts the bar and the whole page.
+- **Tooltips demo HTML-block leak**: Removed the blank line inside the Minecraft Tooltips demo — a blank line ended markdown-it's raw HTML block, causing the second `OreTooltip` to leak its raw source into the live preview as an indented code block.
+- **`OreSpinner` faithful filmstrip**: Rewrote the spinner as the upstream 278×8 filmstrip sprite (16-frame stepped sweep) for a pixel-accurate Bedrock comet — no more synthetic arc drift; `color` prop and `loading` button usage fully synced in the docs.
+
+### 🧹 Maintenance
+- Version bumped to `1.1.1.C` and homepage badge updated.
+
+---
+
 ## <OreBadge type="release">Release</OreBadge> v1.1.1.B (2026-08-28)
 
 ### 🚀 New Components
