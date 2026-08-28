@@ -1,26 +1,26 @@
 <template>
   <div class="oreui-switch-wrapper" :class="{ 'is-disabled': disabled }">
     <div
-      class="oreui-switch"
-      :class="{
-        'is-on': innerValue,
-        'is-disabled': disabled,
-        'bounce-left': bounceLeft,
-        'bounce-right': bounceRight
-      }"
+      class="ore-switch"
+      :checked="innerValue ? '' : undefined"
+      :disabled="disabled ? '' : undefined"
+      :color="color === 'primary' ? undefined : color"
+      :variant="variant === 'default' ? undefined : variant"
+      :pressed="pressed ? '' : undefined"
+      role="switch"
+      :aria-checked="innerValue"
+      :aria-disabled="disabled"
+      :tabindex="disabled ? -1 : 0"
       @click="toggle"
+      @keydown="onKeydown"
+      @keyup="onKeyup"
+      @blur="releasePress"
+      @pointerdown="onPointerDown"
     >
-      <img
-        :src="withBase('/switch_on.png')"
-        class="oreui-switch-icon-left"
-        alt="ON"
-      />
-      <img
-        :src="withBase('/switch_off.png')"
-        class="oreui-switch-icon-right"
-        alt="OFF"
-      />
-      <div class="oreui-switch-slider"></div>
+      <span class="ore-switch-control" aria-hidden="true">
+        <span class="ore-switch-status"></span>
+        <span class="ore-switch-button"></span>
+      </span>
     </div>
     <span v-if="label || $slots.default" class="oreui-switch-label" @click="toggle">
       <slot>{{ label }}</slot>
@@ -29,22 +29,35 @@
 </template>
 
 <script setup lang="ts">
-import { ref, watch, onUnmounted } from 'vue'
-import { withBase } from 'vitepress'
+import { ref, watch } from 'vue'
 import { playSound } from '../composables/useSound'
+
+type OreSwitchColor =
+  | 'primary'
+  | 'secondary'
+  | 'destructive'
+  | 'dungeons'
+  | 'gold'
+  | 'legends'
+  | 'realms'
+type OreSwitchVariant = 'default' | 'icons'
 
 interface Props {
   modelValue?: boolean
   label?: string
   disabled?: boolean
   sound?: boolean
+  color?: OreSwitchColor
+  variant?: OreSwitchVariant
 }
 
 const props = withDefaults(defineProps<Props>(), {
   modelValue: false,
   label: '',
   disabled: false,
-  sound: true
+  sound: true,
+  color: 'primary',
+  variant: 'icons'
 })
 
 const emit = defineEmits<{
@@ -63,32 +76,12 @@ watch(
   }
 )
 
-const bounceLeft = ref(false)
-const bounceRight = ref(false)
-let bounceTimer: ReturnType<typeof setTimeout> | null = null
+const pressed = ref(false)
 
 function toggle() {
   if (props.disabled) return
   const next = !innerValue.value
   innerValue.value = next
-
-  if (bounceTimer) {
-    clearTimeout(bounceTimer)
-  }
-
-  if (next) {
-    bounceRight.value = true
-    bounceLeft.value = false
-    bounceTimer = setTimeout(() => {
-      bounceRight.value = false
-    }, 350)
-  } else {
-    bounceLeft.value = true
-    bounceRight.value = false
-    bounceTimer = setTimeout(() => {
-      bounceLeft.value = false
-    }, 350)
-  }
 
   if (props.sound) {
     playSound('button')
@@ -98,14 +91,223 @@ function toggle() {
   emit('change', next)
 }
 
-onUnmounted(() => {
-  if (bounceTimer) {
-    clearTimeout(bounceTimer)
+function onKeydown(event: KeyboardEvent) {
+  if (props.disabled) return
+  if (event.key === ' ') {
+    event.preventDefault()
+    pressed.value = true
+  } else if (event.key === 'Enter') {
+    event.preventDefault()
+    toggle()
   }
-})
+}
+
+function onKeyup(event: KeyboardEvent) {
+  if (props.disabled) return
+  if (event.key === ' ') {
+    event.preventDefault()
+    releasePress()
+    toggle()
+  }
+}
+
+function onPointerDown(event: PointerEvent) {
+  if (props.disabled || event.button !== 0) return
+  pressed.value = true
+  window.addEventListener('pointerup', releasePress, { once: true })
+  window.addEventListener('pointercancel', releasePress, { once: true })
+}
+
+function releasePress() {
+  pressed.value = false
+  window.removeEventListener('pointerup', releasePress)
+  window.removeEventListener('pointercancel', releasePress)
+}
 </script>
 
 <style scoped>
+.ore-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  color: #1e1e1f;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ore-switch .ore-switch-control {
+  display: flex;
+  align-items: flex-end;
+  width: 56px;
+  height: 30px;
+}
+
+.ore-switch .ore-switch-status {
+  position: relative;
+  z-index: 0;
+  flex: none;
+  box-sizing: border-box;
+  width: 26px;
+  height: 26px;
+  background:
+    linear-gradient(#8c8d90, #8c8d90) left 4px / 22px 18px no-repeat,
+    linear-gradient(#a3a4a6, #a3a4a6) left 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch .ore-switch-button {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) center 4px / 22px 18px no-repeat,
+    linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
+    linear-gradient(#e3e3e5, #e3e3e5) center 2px / 26px 22px no-repeat,
+    #1e1e1f;
+  box-shadow: 0 0 0 2px transparent;
+  order: -1;
+}
+
+.ore-switch[checked] .ore-switch-button {
+  order: 0;
+}
+
+.ore-switch[checked] .ore-switch-status {
+  background:
+    linear-gradient(#3c8527, #3c8527) right 4px / 22px 18px no-repeat,
+    linear-gradient(#639d52, #639d52) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='secondary'] .ore-switch-status {
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) right 4px / 22px 18px no-repeat,
+    linear-gradient(#e3e3e5, #e3e3e5) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='destructive'] .ore-switch-status {
+  background:
+    linear-gradient(#ca3636, #ca3636) right 4px / 22px 18px no-repeat,
+    linear-gradient(#cf4a4a, #cf4a4a) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='dungeons'] .ore-switch-status {
+  background:
+    linear-gradient(#ffa41f, #ffa41f) right 4px / 22px 18px no-repeat,
+    linear-gradient(#ffd953, #ffd953) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='legends'] .ore-switch-status {
+  background:
+    linear-gradient(#acf2ff, #acf2ff) right 4px / 22px 18px no-repeat,
+    linear-gradient(#c4f5fe, #c4f5fe) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='realms'] .ore-switch-status {
+  background:
+    linear-gradient(#7345e5, #7345e5) right 4px / 22px 18px no-repeat,
+    linear-gradient(#8557f8, #8557f8) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='gold'] .ore-switch-status {
+  background:
+    linear-gradient(#ffc42b, #ffc42b) right 4px / 22px 18px no-repeat,
+    linear-gradient(#ffd953, #ffd953) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ore-switch:hover:not([disabled]) .ore-switch-button {
+    background:
+      linear-gradient(#f4f6f9, #f4f6f9) center 4px / 22px 18px no-repeat,
+      linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
+      linear-gradient(#fbfbfd, #fbfbfd) center 2px / 26px 22px no-repeat,
+      #1e1e1f;
+  }
+}
+
+.ore-switch:active:not([disabled]) .ore-switch-button,
+.ore-switch[pressed]:not([disabled]) .ore-switch-button {
+  background:
+    linear-gradient(#b1b2b5, #b1b2b5) center 4px / 22px 18px no-repeat,
+    linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
+    linear-gradient(#d0d1d3, #d0d1d3) center 2px / 26px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch:focus-visible {
+  border-radius: 0;
+  outline: 2px solid #ffffff;
+  outline-offset: 0;
+}
+
+.ore-switch:focus-visible .ore-switch-button {
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) center 4px / 22px 18px no-repeat,
+    linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
+    linear-gradient(#ecedee, #ecedee) center 2px / 26px 22px no-repeat,
+    #1e1e1f;
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+.ore-switch[variant='icons'] .ore-switch-status::after {
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  width: 16px;
+  height: 16px;
+  background: #242425;
+  content: '';
+  -webkit-mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22currentColor%22%20fill-rule%3D%22evenodd%22%20d%3D%22M2%201h4v1H2zm4%201h1v4H6zM2%202v4H1V2zm0%204v1h4V6z%22/%3E%3C/svg%3E')
+    center / contain no-repeat;
+  mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22currentColor%22%20fill-rule%3D%22evenodd%22%20d%3D%22M2%201h4v1H2zm4%201h1v4H6zM2%202v4H1V2zm0%204v1h4V6z%22/%3E%3C/svg%3E')
+    center / contain no-repeat;
+}
+
+.ore-switch[checked][variant='icons'] .ore-switch-status::after {
+  left: 6px;
+  background: #ffffff;
+  -webkit-mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M3.5%201h1v6h-1z%22/%3E%3C/svg%3E');
+  mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M3.5%201h1v6h-1z%22/%3E%3C/svg%3E');
+}
+
+.ore-switch[checked][variant='icons'][color='secondary'] .ore-switch-status::after,
+.ore-switch[checked][variant='icons'][color='dungeons'] .ore-switch-status::after,
+.ore-switch[checked][variant='icons'][color='legends'] .ore-switch-status::after,
+.ore-switch[checked][variant='icons'][color='gold'] .ore-switch-status::after {
+  background: #1e1e1f;
+}
+
+.ore-switch[disabled] {
+  cursor: not-allowed;
+}
+
+.ore-switch[disabled] .ore-switch-status {
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) left 4px / 22px 18px no-repeat,
+    linear-gradient(#d0d1d4, #d0d1d4) left 2px / 24px 22px no-repeat,
+    #8c8d90;
+}
+
+.ore-switch[disabled] .ore-switch-button {
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) center 4px / 22px 18px no-repeat,
+    linear-gradient(#b1b2b5, #b1b2b5) center 24px / 26px 4px no-repeat,
+    linear-gradient(#d0d1d4, #d0d1d4) center 2px / 26px 22px no-repeat,
+    #8c8d90;
+  box-shadow: none;
+}
+
 .oreui-switch-wrapper {
   display: inline-flex;
   align-items: center;
@@ -117,78 +319,15 @@ onUnmounted(() => {
 
 .oreui-switch-wrapper.is-disabled {
   cursor: not-allowed;
-  opacity: 0.6;
 }
 
-.oreui-switch {
-  cursor: pointer;
-  height: 24px;
-  width: 58px;
-  position: relative;
-  border: 2px solid #1E1E1F;
-  background: linear-gradient(to right, #3C8527 50%, #8C8D90 50%);
-  background-clip: padding-box;
-  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.2), inset -2px -2px rgba(255, 255, 255, 0.1);
-  box-sizing: content-box;
-}
-
-.oreui-switch.is-disabled {
-  background: #D0D1D4;
-  border-color: #8C8D90;
-  cursor: not-allowed;
-}
-
-.oreui-switch-icon-left {
-  position: absolute;
-  left: 6px;
-  top: 4px;
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-}
-
-.oreui-switch-icon-right {
-  position: absolute;
-  right: 6px;
-  top: 4px;
-  width: 16px;
-  height: 16px;
-  pointer-events: none;
-}
-
-.oreui-switch-slider {
-  background-color: #D0D1D4;
-  border: 2px solid #1E1E1F;
-  box-shadow: inset 0 -4px #58585A, inset 2px 2px rgba(255, 255, 255, 0.6), inset -2px -6px rgba(255, 255, 255, 0.4);
-  height: 28px;
-  width: 28px;
-  position: absolute;
-  top: -4px;
-  left: -2px;
-  transition: left 125ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 1;
-}
-
-.oreui-switch.is-on .oreui-switch-slider {
-  left: 28px;
-}
-
-.oreui-switch:hover:not(.is-disabled) .oreui-switch-slider {
-  background-color: #B1B2B5;
-  box-shadow: inset 0 -4px #58585A, inset 2px 2px rgba(255, 255, 255, 0.8), inset -2px -6px rgba(255, 255, 255, 0.6);
+.oreui-switch-wrapper.is-disabled .oreui-switch-label {
+  color: var(--vp-c-text-3);
 }
 
 .oreui-switch-label {
   cursor: pointer;
   font-size: 14px;
   color: var(--vp-c-text-1);
-}
-
-.oreui-switch.bounce-left {
-  animation: bounce_right 175ms ease-in-out 2;
-}
-
-.oreui-switch.bounce-right {
-  animation: bounce_left 175ms ease-in-out 2;
 }
 </style>

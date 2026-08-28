@@ -9,6 +9,8 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
+  flex-wrap: nowrap;
   height: var(--oreui-btn-height);
   margin: var(--oreui-btn-margin);
   padding: 3px 16px var(--oreui-btn-padding-bottom) 16px;
@@ -24,6 +26,16 @@
   transition: all 0.08s ease;
   position: relative;
   text-shadow: 1px 1px 0 rgba(0, 0, 0, 0.4);
+  white-space: nowrap;
+  line-height: 1.2;
+}
+
+.oreui-btn-text {
+  white-space: nowrap;
+}
+
+.oreui-btn-text:empty {
+  display: none;
 }
 
 .oreui-btn:active:not(:disabled):not(.is-disabled) {
@@ -32,11 +44,11 @@
   padding: 3px 16px 3px 16px;
 }
 
-/* Button Sizes */
-.oreui-btn.size-xs { width: var(--oreui-btn-width-xs); }
-.oreui-btn.size-sm { width: var(--oreui-btn-width-sm); }
-.oreui-btn.size-md { width: var(--oreui-btn-width-md); }
-.oreui-btn.size-lg { width: var(--oreui-btn-width-lg); }
+/* Button Sizes (min-width so long labels expand horizontally instead of wrapping) */
+.oreui-btn.size-xs { min-width: var(--oreui-btn-width-xs); }
+.oreui-btn.size-sm { min-width: var(--oreui-btn-width-sm); }
+.oreui-btn.size-md { min-width: var(--oreui-btn-width-md); }
+.oreui-btn.size-lg { min-width: var(--oreui-btn-width-lg); }
 .oreui-btn.size-auto { width: auto; min-width: 100px; }
 .oreui-btn.size-full { width: calc(100% - 12px); }
 
@@ -266,19 +278,43 @@
 .oreui-btn.size-icon {
   width: 42px;
   height: 42px;
-  padding: 8px 0 0 0;
+  padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 0;
 }
 
 .oreui-btn.size-icon-sm {
   width: 32px;
   height: 32px;
-  padding: 6px 0 0 0;
+  padding: 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
+  line-height: 0;
+}
+
+/* Icon-only faces: center the glyph dead-center of the inner colored face
+   (optical center sits ~2px above the box center due to the bottom bevel) */
+.oreui-btn.size-icon .oreui-btn-icon,
+.oreui-btn.size-icon-sm .oreui-btn-icon {
+  flex: none;
+  margin: 0 !important;
+  transform: translateY(-2px);
+}
+
+/* Keep icon-only buttons square when pressed (base :active rule adds text padding) */
+.oreui-btn.size-icon:active:not(:disabled):not(.is-disabled) {
+  height: calc(42px - var(--oreui-btn-active-offset));
+  margin-top: calc(var(--oreui-btn-margin) + var(--oreui-btn-active-offset));
+  padding: 0;
+}
+
+.oreui-btn.size-icon-sm:active:not(:disabled):not(.is-disabled) {
+  height: calc(32px - var(--oreui-btn-active-offset));
+  margin-top: calc(var(--oreui-btn-margin) + var(--oreui-btn-active-offset));
+  padding: 0;
 }
 
 /* Focus Outline for Keyboard Navigation */
@@ -289,6 +325,7 @@
 
 /* Loading Spinner within Button */
 .oreui-btn-spinner {
+  flex: none;
   display: inline-block;
   width: 14px;
   height: 14px;
@@ -296,8 +333,6 @@
   border-top-color: #FFFFFF;
   border-radius: 50%;
   animation: oreSpin 0.8s linear infinite;
-  margin-right: 6px;
-  vertical-align: middle;
 }
 
 /* Disabled Button */
@@ -383,79 +418,207 @@
 }
 
 /* --------------------------------------------------------------------------
-   OreUI Switch Toggle
+   OreUI Switch Toggle (katorlys/OreUI ore-switch port)
    -------------------------------------------------------------------------- */
+.ore-switch {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 30px;
+  color: #1e1e1f;
+  cursor: pointer;
+  user-select: none;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.ore-switch .ore-switch-control {
+  display: flex;
+  align-items: flex-end;
+  width: 56px;
+  height: 30px;
+}
+
+.ore-switch .ore-switch-status {
+  position: relative;
+  z-index: 0;
+  flex: none;
+  box-sizing: border-box;
+  width: 26px;
+  height: 26px;
+  background:
+    linear-gradient(#8c8d90, #8c8d90) left 4px / 22px 18px no-repeat,
+    linear-gradient(#a3a4a6, #a3a4a6) left 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch .ore-switch-button {
+  position: relative;
+  z-index: 1;
+  flex: none;
+  box-sizing: border-box;
+  width: 30px;
+  height: 30px;
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) center 4px / 22px 18px no-repeat,
+    linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
+    linear-gradient(#e3e3e5, #e3e3e5) center 2px / 26px 22px no-repeat,
+    #1e1e1f;
+  box-shadow: 0 0 0 2px transparent;
+  order: -1;
+}
+
+.ore-switch[checked] .ore-switch-button {
+  order: 0;
+}
+
+.ore-switch[checked] .ore-switch-status {
+  background:
+    linear-gradient(#3c8527, #3c8527) right 4px / 22px 18px no-repeat,
+    linear-gradient(#639d52, #639d52) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='secondary'] .ore-switch-status {
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) right 4px / 22px 18px no-repeat,
+    linear-gradient(#e3e3e5, #e3e3e5) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='destructive'] .ore-switch-status {
+  background:
+    linear-gradient(#ca3636, #ca3636) right 4px / 22px 18px no-repeat,
+    linear-gradient(#cf4a4a, #cf4a4a) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='dungeons'] .ore-switch-status {
+  background:
+    linear-gradient(#ffa41f, #ffa41f) right 4px / 22px 18px no-repeat,
+    linear-gradient(#ffd953, #ffd953) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='legends'] .ore-switch-status {
+  background:
+    linear-gradient(#acf2ff, #acf2ff) right 4px / 22px 18px no-repeat,
+    linear-gradient(#c4f5fe, #c4f5fe) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='realms'] .ore-switch-status {
+  background:
+    linear-gradient(#7345e5, #7345e5) right 4px / 22px 18px no-repeat,
+    linear-gradient(#8557f8, #8557f8) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch[checked][color='gold'] .ore-switch-status {
+  background:
+    linear-gradient(#ffc42b, #ffc42b) right 4px / 22px 18px no-repeat,
+    linear-gradient(#ffd953, #ffd953) right 2px / 24px 22px no-repeat,
+    #1e1e1f;
+}
+
+@media (hover: hover) and (pointer: fine) {
+  .ore-switch:hover:not([disabled]) .ore-switch-button {
+    background:
+      linear-gradient(#f4f6f9, #f4f6f9) center 4px / 22px 18px no-repeat,
+      linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
+      linear-gradient(#fbfbfd, #fbfbfd) center 2px / 26px 22px no-repeat,
+      #1e1e1f;
+  }
+}
+
+.ore-switch:active:not([disabled]) .ore-switch-button,
+.ore-switch[pressed]:not([disabled]) .ore-switch-button {
+  background:
+    linear-gradient(#b1b2b5, #b1b2b5) center 4px / 22px 18px no-repeat,
+    linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
+    linear-gradient(#d0d1d3, #d0d1d3) center 2px / 26px 22px no-repeat,
+    #1e1e1f;
+}
+
+.ore-switch:focus-visible {
+  border-radius: 0;
+  outline: 2px solid #ffffff;
+  outline-offset: 0;
+}
+
+.ore-switch:focus-visible .ore-switch-button {
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) center 4px / 22px 18px no-repeat,
+    linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
+    linear-gradient(#ecedee, #ecedee) center 2px / 26px 22px no-repeat,
+    #1e1e1f;
+  box-shadow: 0 0 0 2px #ffffff;
+}
+
+.ore-switch[variant='icons'] .ore-switch-status::after {
+  position: absolute;
+  top: 5px;
+  left: 4px;
+  width: 16px;
+  height: 16px;
+  background: #242425;
+  content: '';
+  -webkit-mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22currentColor%22%20fill-rule%3D%22evenodd%22%20d%3D%22M2%201h4v1H2zm4%201h1v4H6zM2%202v4H1V2zm0%204v1h4V6z%22/%3E%3C/svg%3E')
+    center / contain no-repeat;
+  mask: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22currentColor%22%20fill-rule%3D%22evenodd%22%20d%3D%22M2%201h4v1H2zm4%201h1v4H6zM2%202v4H1V2zm0%204v1h4V6z%22/%3E%3C/svg%3E')
+    center / contain no-repeat;
+}
+
+.ore-switch[checked][variant='icons'] .ore-switch-status::after {
+  left: 6px;
+  background: #ffffff;
+  -webkit-mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M3.5%201h1v6h-1z%22/%3E%3C/svg%3E');
+  mask-image: url('data:image/svg+xml,%3Csvg%20xmlns%3D%22http://www.w3.org/2000/svg%22%20fill%3D%22none%22%20viewBox%3D%220%200%208%208%22%3E%3Cpath%20fill%3D%22currentColor%22%20d%3D%22M3.5%201h1v6h-1z%22/%3E%3C/svg%3E');
+}
+
+.ore-switch[checked][variant='icons'][color='secondary'] .ore-switch-status::after,
+.ore-switch[checked][variant='icons'][color='dungeons'] .ore-switch-status::after,
+.ore-switch[checked][variant='icons'][color='legends'] .ore-switch-status::after,
+.ore-switch[checked][variant='icons'][color='gold'] .ore-switch-status::after {
+  background: #1e1e1f;
+}
+
+.ore-switch[disabled] {
+  cursor: not-allowed;
+}
+
+.ore-switch[disabled] .ore-switch-status {
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) left 4px / 22px 18px no-repeat,
+    linear-gradient(#d0d1d4, #d0d1d4) left 2px / 24px 22px no-repeat,
+    #8c8d90;
+}
+
+.ore-switch[disabled] .ore-switch-button {
+  background:
+    linear-gradient(#d0d1d4, #d0d1d4) center 4px / 22px 18px no-repeat,
+    linear-gradient(#b1b2b5, #b1b2b5) center 24px / 26px 4px no-repeat,
+    linear-gradient(#d0d1d4, #d0d1d4) center 2px / 26px 22px no-repeat,
+    #8c8d90;
+  box-shadow: none;
+}
+
 .oreui-switch-wrapper {
   display: inline-flex;
   align-items: center;
   gap: 12px;
   user-select: none;
   font-family: var(--font-noto-bold);
+  margin: 6px 0;
 }
 
-.oreui-switch {
-  cursor: pointer;
-  height: 24px;
-  width: 58px;
-  position: relative;
-  border: 2px solid #1E1E1F;
-  background: linear-gradient(to right, #3C8527 50%, #8C8D90 50%);
-  background-clip: padding-box;
-  box-shadow: inset 2px 2px rgba(255, 255, 255, 0.2), inset -2px -2px rgba(255, 255, 255, 0.1);
-  box-sizing: content-box;
-}
-
-.oreui-switch.is-disabled {
-  background-color: #D0D1D4;
-  border-color: #8C8D90;
+.oreui-switch-wrapper.is-disabled {
   cursor: not-allowed;
-  opacity: 0.7;
 }
 
-.oreui-switch-icon-left {
-  position: absolute;
-  left: 6px;
-  top: 4px;
-  width: 16px;
-  height: 16px;
-}
-
-.oreui-switch-icon-right {
-  position: absolute;
-  right: 6px;
-  top: 4px;
-  width: 16px;
-  height: 16px;
-}
-
-.oreui-switch-slider {
-  background-color: #D0D1D4;
-  border: 2px solid #1E1E1F;
-  box-shadow: inset 0 -4px #58585A, inset 2px 2px rgba(255, 255, 255, 0.6), inset -2px -6px rgba(255, 255, 255, 0.4);
-  height: 28px;
-  width: 28px;
-  position: absolute;
-  top: -4px;
-  left: -2px;
-  transition: left 125ms cubic-bezier(0.34, 1.56, 0.64, 1);
-  z-index: 1;
-}
-
-.oreui-switch.is-on .oreui-switch-slider {
-  left: 28px;
-}
-
-.oreui-switch:hover:not(.is-disabled) .oreui-switch-slider {
-  background-color: #B1B2B5;
-  box-shadow: inset 0 -4px #58585A, inset 2px 2px rgba(255, 255, 255, 0.8), inset -2px -6px rgba(255, 255, 255, 0.6);
-}
-
-.oreui-switch.bounce-left {
-  animation: bounce_right 175ms ease-in-out 2;
-}
-
-.oreui-switch.bounce-right {
-  animation: bounce_left 175ms ease-in-out 2;
+.oreui-switch-label {
+  cursor: pointer;
+  font-size: 14px;
+  color: var(--vp-c-text-1);
 }
 
 /* --------------------------------------------------------------------------

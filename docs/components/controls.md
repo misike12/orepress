@@ -52,13 +52,14 @@ Supports single selection with authentic Bedrock green square dot indicators and
 
 ## 🎚️ Switch Toggle
 
-Features the classic Bedrock gradient track with jelly bounce feedback animation on state change:
+Bedrock toggle built from a raised gray knob and a colored status square that swap sides on state change (katorlys/OreUI `ore-switch` port), with the I/O glyphs shown by default and click audio feedback:
 
 <OreDisplay title="Switch Toggles">
   <div style="display: flex; flex-direction: column; gap: 12px;">
     <OreSwitch :model-value="true" label="High-Resolution Texture Pack" />
     <OreSwitch :model-value="false" label="Real-time Ray Tracing (RTX)" />
     <OreSwitch :model-value="true" disabled label="Server Administrator Lock" />
+    <OreSwitch :model-value="true" variant="default" label="Plain Variant (no glyphs)" />
   </div>
 </OreDisplay>
 

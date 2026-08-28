@@ -210,14 +210,16 @@ function handleClick(e: MouseEvent) {
   height: 16px;
   object-fit: contain;
   pointer-events: none;
+  flex: none;
+  align-self: center;
 }
 
 .oreui-btn-icon.left {
-  margin-right: 6px;
+  margin-right: 0;
 }
 
 .oreui-btn-icon.right {
-  margin-left: 6px;
+  margin-left: 0;
 }
 
 .oreui-btn-tooltip {
