@@ -58,133 +58,335 @@ body {
 }
 
 /* ==========================================================================
-   Navbar
+   Navbar (Bedrock Appbar)
    ========================================================================== */
-.VPNav {
-  background-color: rgba(30, 30, 31, 0.95) !important;
-  border-bottom: 2px solid #1E1E1F !important;
-  box-shadow: 0 4px 0 #242425 !important;
-  backdrop-filter: blur(10px) !important;
+
+/* Taller, chunkier bedrock appbar */
+:root {
+  --vp-nav-height: 72px;
+}
+
+.VPNav,
+.VPNavBar {
+  background-color: #E6E8EB !important;
+  backdrop-filter: none !important;
+}
+
+/* remove VitePress' own bottom hairline so no extra gray strip appears */
+.VPNavBar .divider,
+.VPNavBar .divider-line {
+  display: none !important;
+}
+
+/* VitePress paints the inner .content-body with --vp-nav-bg-color on
+   sub-pages, which made the navbar dark there. Force it light too. */
+:root {
+  --vp-nav-bg-color: #E6E8EB !important;
+}
+
+.VPNavBar .content-body,
+.VPNavBar:not(.home.top) .content-body {
+  background-color: #E6E8EB !important;
+}
+
+.VPNavBar.screen-open {
+  background-color: #E6E8EB !important;
 }
 
 .VPNavBarTitle .title {
   font-family: var(--font-mc-ten) !important;
-  font-size: 1.35rem !important;
-  letter-spacing: 0.5px;
-  color: #FFFFFF !important;
-  text-shadow: 2px 2px #000000;
+  font-size: 1.5rem !important;
+  letter-spacing: 1px;
+  color: #3C3C3C !important;
+  text-shadow: 2px 2px 0 rgba(255, 255, 255, 0.6);
+}
+
+/* VitePress draws a 1px --vp-c-divider (#58585A) bottom border under the
+   title on has-sidebar pages; it lands exactly on top of the sidebar. */
+.VPNavBarTitle .title,
+.VPNavBarTitle.has-sidebar .title {
+  border-bottom: 1px solid transparent !important;
+}
+
+/* Appbar action buttons (separated by inset bevel dividers) */
+.VPNavBarMenuLink,
+.VPFlyout .button,
+.VPNavBarHamburger {
+  font-family: var(--font-mc-seven) !important;
+  font-size: 0.95rem !important;
+  color: #3C3C3C !important;
+  background-color: transparent !important;
+  border: none !important;
+  border-radius: 0 !important;
+  box-shadow: inset 2px 0 0 #FFFFFF, inset -2px 0 0 #A1A3A5 !important;
+  transition: background-color 0.1s ease, box-shadow 0.1s ease !important;
 }
 
 .VPNavBarMenuLink {
-  font-family: var(--font-mc-seven) !important;
-  font-size: 0.95rem !important;
-  color: #D0D1D4 !important;
-  padding: 4px 10px !important;
-  border: 1px solid transparent;
-  transition: all 0.1s ease;
+  padding: 0 24px !important;
 }
 
-.VPNavBarMenuLink:hover {
-  color: #FFFFFF !important;
-  background-color: #48494A !important;
-  border: 1px solid #58585A !important;
+.VPNavBarMenuLink:hover,
+.VPFlyout .button:hover,
+.VPNavBarHamburger:hover {
+  background-color: #F4F6F9 !important;
+  color: #1E1E1F !important;
 }
 
-.VPNavBarMenuLink.active {
-  color: #55FF55 !important;
-  border-bottom: 2px solid #3C8527 !important;
+/* Active link = pressed bevel (simulated depression) */
+.VPNavBarMenuLink.active,
+.VPNavBarMenuLink[aria-current='page'] {
+  background-color: #D0D1D4 !important;
+  color: #1E1E1F !important;
+  box-shadow:
+    inset 2px 0 0 #FFFFFF,
+    inset -2px 0 0 #A1A3A5,
+    inset 0 2px 0 #B1B2B5,
+    inset 0 -2px 0 #FFFFFF !important;
 }
 
-/* Dropdowns / Flyout menus */
+/* Flyout / dropdown popups stay dark (authentic menu panel) */
 .VPFlyout,
 .VPMenu {
   background-color: #313233 !important;
   border: 2px solid #1E1E1F !important;
   box-shadow:
-    inset 0 2px rgba(255, 255, 255, 0.15),
+    inset 2px 2px rgba(255, 255, 255, 0.12),
+    inset -2px -2px rgba(255, 255, 255, 0.08),
     0 8px 16px rgba(0, 0, 0, 0.7) !important;
   border-radius: 0 !important;
 }
 
 .VPMenuLink {
-  font-family: var(--font-noto-bold) !important;
-  font-size: 13px !important;
-  color: #D0D1D4 !important;
+  font-family: var(--font-mc-seven) !important;
+  font-size: 0.9rem !important;
+  color: #FFFFFF !important;
   border-radius: 0 !important;
+  transition: background-color 0.1s ease, color 0.1s ease !important;
 }
 
 .VPMenuLink:hover,
 .VPMenuLink.active {
-  background-color: #3C8527 !important;
-  color: #FFFFFF !important;
+  background-color: #48494A !important;
+  color: #55FF55 !important;
 }
 
-/* Search Box */
+/* Search Box (light appbar-safe) */
 .DocSearch-Button,
 .VPNavBarSearchButton {
-  background-color: #1E1E1F !important;
-  border: 2px solid #48494A !important;
+  background-color: #D0D1D4 !important;
+  border: 2px solid #A1A3A5 !important;
   border-radius: 0 !important;
-  box-shadow: inset 0 2px 4px rgba(0, 0, 0, 0.5) !important;
-  color: #D0D1D4 !important;
-  font-family: var(--font-noto-bold) !important;
+  box-shadow:
+    inset 0 2px 0 #B1B2B5,
+    inset 2px 2px 0 rgba(255, 255, 255, 0.5) !important;
+  color: #3C3C3C !important;
+  font-family: var(--font-mc-seven) !important;
+}
+
+.DocSearch-Button .DocSearch-Button-Placeholder,
+.DocSearch-Button .DocSearch-Search-Icon,
+.DocSearch-Button .DocSearch-Button-Key,
+.VPNavBarSearchButton svg {
+  color: #3C3C3C !important;
 }
 
 .DocSearch-Button:hover,
 .VPNavBarSearchButton:hover {
-  border-color: #6CC349 !important;
+  background-color: #C9CBCE !important;
+  border-color: #8C8D90 !important;
+  color: #1E1E1F !important;
+}
+
+/* Force dark icon contrast on the light appbar */
+.VPNavBar .VPSocialLink,
+.VPNavBar .VPNavBarAppearance .VPSwitch,
+.VPNavBar .VPNavBarAppearance .VPSwitch svg,
+.VPNavBar .VPNavBarHamburger {
+  color: #3C3C3C !important;
+  fill: currentColor !important;
+}
+
+.VPNavBar .VPSocialLink:hover,
+.VPNavBar .VPNavBarAppearance .VPSwitch:hover,
+.VPNavBar .VPNavBarHamburger:hover {
+  color: #1E1E1F !important;
+}
+
+/* Minecraft switch for light/dark theme (matches our OreSwitch component) */
+.VPNavBar .VPNavBarAppearance {
+  box-shadow: inset 2px 0 0 #FFFFFF, inset -2px 0 0 #A1A3A5 !important;
+}
+
+.VPNavBar .VPNavBarAppearance .VPSwitch {
+  width: 56px !important;
+  height: 22px !important;
+  border: 2px solid #1E1E1F !important;
+  border-radius: 0 !important;
+  background: linear-gradient(to right, #3C8527 50%, #8C8D90 50%) !important;
+  box-shadow:
+    inset 2px 2px rgba(255, 255, 255, 0.25),
+    inset -2px -2px rgba(255, 255, 255, 0.1) !important;
+  transition: none !important;
+}
+
+.VPNavBar .VPNavBarAppearance .VPSwitch .check {
+  box-sizing: content-box !important;
+  display: flex !important;
+  align-items: center !important;
+  justify-content: center !important;
+  top: -6px !important;
+  left: -2px !important;
+  width: 26px !important;
+  height: 26px !important;
+  border-radius: 0 !important;
+  background-color: #D0D1D4 !important;
+  border: 2px solid #1E1E1F !important;
+  box-shadow:
+    inset 0 -4px #58585A,
+    inset 2px 2px rgba(255, 255, 255, 0.6),
+    inset -2px -6px rgba(255, 255, 255, 0.4) !important;
+  transition: transform 125ms cubic-bezier(0.34, 1.56, 0.64, 1) !important;
+}
+
+.VPNavBar .VPNavBarAppearance .VPSwitch .check .icon {
+  position: relative !important;
+  display: block;
+  width: 18px !important;
+  height: 18px !important;
+  border-radius: 0 !important;
+  overflow: visible !important;
+}
+
+.VPNavBar .VPNavBarAppearance .VPSwitch .icon [class^='vpi-'] {
+  color: #3C3C3C !important;
+}
+
+/* theme toggle: dark mode = ON => knob slides right */
+html.dark .VPNavBar .VPNavBarAppearance .VPSwitch .check {
+  transform: translateX(32px) !important;
+}
+
+.VPNavBar .VPNavBarAppearance .VPSwitch:hover .check {
+  background-color: #B1B2B5 !important;
+  box-shadow:
+    inset 0 -4px #58585A,
+    inset 2px 2px rgba(255, 255, 255, 0.8),
+    inset -2px -6px rgba(255, 255, 255, 0.6) !important;
+}
+
+/* Mobile nav screen + local nav remain dark stone */
+.VPLocalNav {
+  background-color: #E6E8EB !important;
+  border-bottom: 2px solid #B1B2B5 !important;
+}
+
+.VPNavScreen {
+  background-color: #1E1E1F !important;
+}
+
+.VPNavScreen .title-text,
+.VPNavScreenGroup .title-text {
+  font-family: var(--font-mc-seven) !important;
+  color: #FFE866 !important;
+}
+
+.VPNavScreenMenuLink {
+  font-family: var(--font-mc-seven) !important;
   color: #FFFFFF !important;
+  transition: color 0.1s ease !important;
+}
+
+.VPNavScreenMenuLink:hover {
+  color: #55FF55 !important;
 }
 
 /* ==========================================================================
-   Sidebar
+   Sidebar (Dark OreUI List Panel)
    ========================================================================== */
 .VPSidebar {
-  background-color: #242526 !important;
+  background-color: #313233 !important;
   border-right: 2px solid #1E1E1F !important;
-  box-shadow: 4px 0 0 rgba(0, 0, 0, 0.25) !important;
+  box-shadow:
+    inset 2px 2px rgba(255, 255, 255, 0.08),
+    inset -2px -2px rgba(255, 255, 255, 0.05),
+    4px 0 0 rgba(0, 0, 0, 0.3) !important;
 }
 
-.VPSidebarGroup {
-  border-bottom: 1px solid #313233;
-  padding-bottom: 8px;
-  margin-bottom: 8px;
+/* group separator: subtle dark line instead of the light VitePress divider */
+.VPSidebarGroup .group + .group {
+  border-top: 2px solid #242425 !important;
 }
 
-.VPSidebarGroup .title-text {
+/* group heading (level-0) */
+.VPSidebarItem.level-0 > .item > .text {
   font-family: var(--font-mc-seven) !important;
   font-size: 0.92rem !important;
   color: #FFE866 !important;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 1px;
+  text-shadow: 1px 1px #000000;
 }
 
-.VPSidebarItem.level-0 > .item .text {
-  font-family: var(--font-mc-seven) !important;
-  font-size: 0.95rem !important;
-  color: #FFFFFF !important;
+/* remove the default nested vertical divider + indicator bars */
+.VPSidebarItem .items {
+  border-left: 0 !important;
+  padding-left: 16px !important;
 }
 
-.VPSidebarItem.level-1 .text,
-.VPSidebarItem.level-2 .text,
-.VPSidebarItem.level-3 .text {
+.VPSidebarItem .indicator {
+  display: none !important;
+}
+
+/* sidebar item rows */
+.VPSidebarItem > .item {
+  background-color: transparent !important;
+  border: 0 !important;
   font-family: var(--font-noto-bold) !important;
+  padding: 9px 12px !important;
+  margin: 1px 0 !important;
+  transition: background-color 0.1s ease, color 0.1s ease !important;
+}
+
+.VPSidebarItem > .item .text {
   font-size: 0.88rem !important;
-  color: #B1B2B5 !important;
+  color: #D0D1D4 !important;
+  line-height: 24px !important;
+  padding: 4px 0 !important;
 }
 
-.VPSidebarItem:hover .text {
-  color: #FFFFFF !important;
+/* hover = green selection highlight */
+.VPSidebarItem.is-link > .item:hover {
+  background-color: rgba(60, 133, 39, 0.22) !important;
+  box-shadow: inset 0 2px 0 rgba(255, 255, 255, 0.1) !important;
 }
 
-.VPSidebarItem.is-active > .item {
-  background-color: rgba(60, 133, 39, 0.25) !important;
-  border-left: 4px solid #3C8527 !important;
-}
-
-.VPSidebarItem.is-active .text {
+.VPSidebarItem.is-link > .item:hover .text {
   color: #55FF55 !important;
-  font-weight: 700 !important;
+}
+
+/* parent of current page = green heading text, no background */
+.VPSidebarItem.has-active > .item .text {
+  color: #55FF55 !important;
+}
+
+/* active page = solid green pressed rectangle (classic Minecraft menu) */
+.VPSidebarItem.is-active > .item {
+  background-color: #3C8527 !important;
+  box-shadow:
+    inset 0 -3px #1D4D13,
+    inset 0 3px rgba(255, 255, 255, 0.3) !important;
+}
+
+.VPSidebarItem.is-active > .item .text {
+  color: #FFFFFF !important;
+  text-shadow: 1px 1px #000000;
+}
+
+/* Sidebar scrollbar track tone */
+.VPSidebar::-webkit-scrollbar-track {
+  background: #313233 !important;
+  border-left: 1px solid #1E1E1F !important;
 }
 
 /* ==========================================================================

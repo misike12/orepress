@@ -6,6 +6,23 @@ Version history and release notes for the OreUI VitePress Theme.
 
 ---
 
+## <OreBadge type="release">Release</OreBadge> v1.1.1.A (2026-08-28)
+
+### 🎨 Bedrock Navbar & Sidebar Redesign
+- **Light Bedrock appbar navbar**: The navbar is now a light `#E6E8EB` bedrock appbar with bevel-divided menu buttons, Minecraft tuning and dark rounded dropdown panels on every page (previously only the home page looked right).
+- **Icon contrast fixed**: Social, search, appearance and hamburger icons are now dark `#3C3C3C` so they read clearly on the light appbar.
+- **Clean sidebar list panel**: Removed the default vertical divider lines, indicator bars and per-row bevels that caused "random lines"; group headings are gold Minecraft Seven and the active page is a solid green `#3C8527` pressed rectangle.
+- **Minecraft theme switch**: The light/dark toggle is now a real Minecraft switch (green/gray track + beveled sliding knob) with the sun/moon icon centered on the knob.
+- **Pixel-art mute button**: Replaced the `🔊`/`🔇` emojis with a crisp pixel-art speaker + red mute-cross icon.
+
+### 🐛 Bug Fixes
+- **`OreSlider` sound spam throttled**: Sound effects now play at most every 50ms while dragging, eliminating the machine-gun audio spam.
+
+### 🧹 Maintenance
+- Version bumped to `1.1.1.A` (letter subversion sequence).
+
+---
+
 ## <OreBadge type="release">Release</OreBadge> v1.1.1 (2026-08-28)
 
 ### 🐛 Bug Fixes & Quality Improvements

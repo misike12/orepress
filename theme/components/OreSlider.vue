@@ -118,14 +118,25 @@ function calculateValue(clientX: number): number {
   return Math.max(props.min, Math.min(props.max, rounded))
 }
 
+// Throttle tick sounds so fast pointer moves don't spam the same click.
+const SOUND_THROTTLE_MS = 50
+let lastSoundTime = 0
+
+function maybePlayTick() {
+  if (!props.sound) return
+  const now = Date.now()
+  if (now - lastSoundTime >= SOUND_THROTTLE_MS) {
+    lastSoundTime = now
+    playSound('click')
+  }
+}
+
 function updateFromEvent(e: PointerEvent | MouseEvent) {
   if (props.disabled) return
   const finalVal = calculateValue(e.clientX)
   if (finalVal !== innerValue.value) {
     innerValue.value = finalVal
-    if (props.sound) {
-      playSound('click')
-    }
+    maybePlayTick()
     emit('update:modelValue', finalVal)
     emit('change', finalVal)
   }
@@ -134,6 +145,7 @@ function updateFromEvent(e: PointerEvent | MouseEvent) {
 function handlePointerDown(e: PointerEvent) {
   if (props.disabled) return
   isDragging.value = true
+  lastSoundTime = 0
   updateFromEvent(e)
 
   if (typeof window !== 'undefined') {
