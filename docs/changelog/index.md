@@ -9,7 +9,7 @@ Version history and release notes for the OreUI VitePress Theme.
 ## <OreBadge type="release">Release</OreBadge> v1.1.1.C (2026-08-28)
 
 ### 🐛 Bug Fixes
-- **Verbatum `ore-switch` port for `OreSwitch`**: The component is now a faithful katorlys/OreUI switch port with resolved hex values, and the icons (I/O glyphs) variant is the default.
+- **Verbatim `ore-switch` port for `OreSwitch`**: The component is now a faithful katorlys/OreUI switch port with resolved hex values, and the icons (I/O glyphs) variant is the default.
 - **Navbar theme switch cleaned up**: Removed the sun/moon glyphs from the navbar light/dark toggle so it is a pure Minecraft switch (no icon).
 - **`OreSoundToggle` restyle**: Replaced the pixel-art speaker with a clean vector speaker and a raised bevel button.
 - **Button sizing & alignment**: Buttons use `nowrap` + min-width sizing so labels expand instead of wrapping; flex gap for icons/spinners; icon-only faces are dead-centered.
