@@ -224,3 +224,130 @@ Uses the classic Minecraft asymmetrical borders (light gray top `#5A5B5C` and da
   <p>This is an OreUI Frame container.</p>
 </div>
 ```
+
+---
+
+## 🗄️ OreContainer Panels
+
+Grid panels that group settings content. The `dark` variant caps the panel with a bottom divider shade, while `light` raises it with a specular top highlight:
+
+<OreDisplay title="Container Variants">
+  <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 520px;">
+    <OreContainer>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-family: var(--font-noto-bold);">World Seed</span>
+        <span style="color: #D0D1D4;">-48910284019284</span>
+      </div>
+      <div style="display: flex; justify-content: space-between; align-items: center;">
+        <span style="font-family: var(--font-noto-bold);">Gamemode</span>
+        <span style="color: #D0D1D4;">Survival</span>
+      </div>
+    </OreContainer>
+    <OreContainer variant="light">
+      <span style="font-family: var(--font-noto-bold);">Light Weight Variant</span>
+      <span style="color: #D0D1D4;">Use this for raised, focused content blocks.</span>
+    </OreContainer>
+  </div>
+</OreDisplay>
+
+```vue
+<template>
+  <!-- Dark panel (default) -->
+  <OreContainer>
+    <p>Dark, recessed content panel.</p>
+  </OreContainer>
+
+  <!-- Light raised panel -->
+  <OreContainer variant="light">
+    <p>Light, raised content panel.</p>
+  </OreContainer>
+</template>
+```
+
+---
+
+## ➖ Divider
+
+A two-pixel Minecraft rule separating stacked content — dark top pixel and light bottom pixel:
+
+<OreDisplay title="Dividers">
+  <div style="width: 100%; max-width: 520px;">
+    <p style="margin: 0 0 4px 0;">Ray Tracing</p>
+    <OreDivider />
+    <p style="margin: 4px 0;">Render Distance</p>
+    <OreDivider />
+    <p style="margin: 4px 0 0 0;">Performance Mode</p>
+  </div>
+</OreDisplay>
+
+```vue
+<template>
+  <p>Ray Tracing</p>
+  <OreDivider />
+  <p>Render Distance</p>
+  <OreDivider />
+  <p>Performance Mode</p>
+</template>
+```
+
+---
+
+## 🧭 OreNavbar Screen Title Bar
+
+A Bedrock-style screen title bar with a left action slot, centered title, and a right action slot:
+
+<OreDisplay title="Navbar">
+  <div style="width: 100%; max-width: 640px;">
+    <OreNavbar title="World Settings">
+      <template #start>
+        <OreIconButton icon="arrowLeft_white" tip="Back" variant="dark" />
+      </template>
+      <template #actions>
+        <OreIconButton icon="question" tip="Help" variant="dark" />
+        <OreIconButton icon="Menu" tip="Options" variant="dark" />
+      </template>
+    </OreNavbar>
+  </div>
+</OreDisplay>
+
+```vue
+<template>
+  <OreNavbar title="World Settings">
+    <template #start>
+      <OreIconButton icon="arrowLeft_white" tip="Back" variant="dark" />
+    </template>
+    <template #actions>
+      <OreIconButton icon="question" tip="Help" variant="dark" />
+      <OreIconButton icon="Menu" tip="Options" variant="dark" />
+    </template>
+  </OreNavbar>
+</template>
+```
+
+---
+
+## 🎚️ OreScrollbar Scrollable Panel
+
+A scroll container with Minecraft-styled draggable thumb tracks, arrow/Page/Home/End keyboard support and automatic track visibility:
+
+<OreDisplay title="Scrollbar Panel">
+  <div style="width: 100%; max-width: 520px;">
+    <OreScrollbar height="180px">
+      <OreContainer>
+        <p style="margin: 0;" v-for="index in 8" :key="index">
+          Server Rule {{ index }} — Do not grief, steal, or build within 100 blocks of spawn.
+        </p>
+      </OreContainer>
+    </OreScrollbar>
+  </div>
+</OreDisplay>
+
+```vue
+<template>
+  <OreScrollbar height="180px">
+    <OreContainer>
+      <p v-for="index in 8" :key="index">Server Rule {{ index }} ...</p>
+    </OreContainer>
+  </OreScrollbar>
+</template>
+```

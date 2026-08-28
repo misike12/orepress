@@ -145,3 +145,82 @@ Features dark inset shading and bright `#6CC349` fluorescent green caret cursor:
   <OreInput v-model="serverNotice" textarea :rows="3" placeholder="Enter server broadcast..." />
 </template>
 ```
+
+---
+
+## 📝 Textarea Fields
+
+Labeled multi-line text inputs with inset Bedrock shading, description and inline validation error messages:
+
+<OreDisplay title="Textareas">
+  <div style="display: flex; flex-direction: column; gap: 16px; width: 100%; max-width: 520px;">
+    <OreTextarea
+      label="Server MOTD"
+      placeholder="Broadcast a welcome message shown on join..."
+      description="Shown in the server list and on the join screen."
+    />
+    <OreTextarea
+      label="Server Rules"
+      :rows="4"
+      placeholder="List the rules players must follow..."
+    />
+    <OreTextarea
+      label="Whitelist Comment"
+      :model-value="'Banned'"
+      error="Only players on the allowlist may join."
+    />
+    <OreTextarea label="Locked Field" disabled placeholder="Disabled textarea..." />
+  </div>
+</OreDisplay>
+
+```vue
+<template>
+  <OreTextarea
+    v-model="motd"
+    label="Server MOTD"
+    placeholder="Broadcast a welcome message shown on join..."
+    description="Shown in the server list and on the join screen."
+  />
+  <OreTextarea v-model="rules" :rows="4" label="Server Rules" />
+  <OreTextarea label="Whitelist Comment" error="Banned from this realm." />
+</template>
+```
+
+---
+
+## 🔀 Toggle Selector Group
+
+Compact square Bedrock toggle selectors for switching between mutually exclusive modes:
+
+<OreDisplay title="Toggle Selectors">
+  <div style="display: flex; flex-direction: column; gap: 16px; align-items: flex-start;">
+    <OreToggles
+      model-value="lite"
+      :options="[
+        { label: 'Lite', value: 'lite' },
+        { label: 'Fancy', value: 'fancy' },
+        { label: 'Fabulous', value: 'fabulous' }
+      ]"
+    />
+    <OreToggles
+      model-value="1"
+      :options="[
+        { label: 'Off', value: '0' },
+        { label: 'On', value: '1' }
+      ]"
+    />
+  </div>
+</OreDisplay>
+
+```vue
+<template>
+  <OreToggles
+    v-model="graphics"
+    :options="[
+      { label: 'Lite', value: 'lite' },
+      { label: 'Fancy', value: 'fancy' },
+      { label: 'Fabulous', value: 'fabulous' }
+    ]"
+  />
+</template>
+```

@@ -11,7 +11,7 @@
   justify-content: center;
   height: var(--oreui-btn-height);
   margin: var(--oreui-btn-margin);
-  padding: 0 16px var(--oreui-btn-padding-bottom) 16px;
+  padding: 3px 16px var(--oreui-btn-padding-bottom) 16px;
   border: none;
   outline: none;
   font-family: var(--font-noto-bold);
@@ -29,7 +29,7 @@
 .oreui-btn:active:not(:disabled):not(.is-disabled) {
   height: calc(var(--oreui-btn-height) - var(--oreui-btn-active-offset));
   margin-top: calc(var(--oreui-btn-margin) + var(--oreui-btn-active-offset));
-  padding-bottom: calc(var(--oreui-btn-padding-bottom) - (var(--oreui-btn-active-offset) / 2));
+  padding: 3px 16px 3px 16px;
 }
 
 /* Button Sizes */
@@ -266,7 +266,7 @@
 .oreui-btn.size-icon {
   width: 42px;
   height: 42px;
-  padding: 0;
+  padding: 8px 0 0 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -275,7 +275,7 @@
 .oreui-btn.size-icon-sm {
   width: 32px;
   height: 32px;
-  padding: 0;
+  padding: 6px 0 0 0;
   display: inline-flex;
   align-items: center;
   justify-content: center;
@@ -400,6 +400,7 @@
   position: relative;
   border: 2px solid #1E1E1F;
   background: linear-gradient(to right, #3C8527 50%, #8C8D90 50%);
+  background-clip: padding-box;
   box-shadow: inset 2px 2px rgba(255, 255, 255, 0.2), inset -2px -2px rgba(255, 255, 255, 0.1);
   box-sizing: content-box;
 }

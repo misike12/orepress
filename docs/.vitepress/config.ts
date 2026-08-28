@@ -52,6 +52,7 @@ export default defineConfig({
             { text: 'Messages & Modals', link: '/components/messages' },
             { text: 'Containers & Cards', link: '/components/containers' },
             { text: 'Badges & Tags', link: '/components/badges-tags' },
+            { text: 'Data Display', link: '/components/data-display' },
             { text: 'Sound Effects', link: '/components/sound-effects' }
           ]
         }

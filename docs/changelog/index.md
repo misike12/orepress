@@ -6,6 +6,31 @@ Version history and release notes for the OreUI VitePress Theme.
 
 ---
 
+## <OreBadge type="release">Release</OreBadge> v1.1.1.B (2026-08-28)
+
+### 🚀 New Components
+- **`OreContainer`**: Dark/light Bedrock container frame with titlebar and footer slots.
+- **`OreDivider`**: Hotbar-style `role="separator"` divider with aesthetic variant.
+- **`OreIconButton`**: Square icon-only Bedrock button wrapper (icon, tip, disabled, loading) for compact toolbars.
+- **`OreNavbar`**: Blade-style top navbar bar with start/title/actions slots, title prop, and dark bevel styling.
+- **`OreProgressRing`**: 24-cell pixel ring with dim track and center label slot.
+- **`OreSpinner`**: Minecraft comet spinner with `steps(32)` animation and `prefers-reduced-motion` support.
+- **`OreScrollbar`**: Draggable horizontal/vertical Bedrock scrollbar with keyboard arrows/Page/End support.
+- **`OreTable`**: Sortable Bedrock table (cyclic asc/desc/none) with striped/plain variants and scoped slots.
+- **`OreTextarea`**: Multi-line dark input with label, description, error + inline validation.
+- **`OreToggles`**: Compact toggle selector group with click audio.
+
+### 🐛 Bug Fixes
+- **Optical centering for Bedrock bevels**: Buttons, icon buttons, toggles, pagination and the header theme-switch knob now center content inside the inner face rectangle (asymmetric padding matching the 3D top highlight / bottom bevel) instead of the outer box.
+- **`OreToggles` static `model-value`**: Toggles now hold internal state and react to prop changes, so docs examples with a fixed `model-value` work; also enlarged (taller, wider, larger font).
+- **`OreSwitch` track fill bleed**: Two-tone green/gray fill is clipped with `background-clip: padding-box` so it no longer seeps under/outside the dark border frame.
+
+### 🧹 Maintenance
+- Added component docs pages (Buttons, Controls, Containers, Data Display) + sidebar entry.
+- Version bumped to `1.1.1.B`.
+
+---
+
 ## <OreBadge type="release">Release</OreBadge> v1.1.1.A (2026-08-28)
 
 ### 🎨 Bedrock Navbar & Sidebar Redesign

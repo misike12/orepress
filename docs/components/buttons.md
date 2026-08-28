@@ -169,6 +169,34 @@ Ideal for terms acceptance, critical confirmations, or action cooldowns. The but
 
 ---
 
+## 🔳 Icon Buttons
+
+Square icon-only buttons for toolbar actions, nav bars and modal headers. They reuse the full button palette, loading, tooltip and sound behavior:
+
+<OreDisplay title="Icon Buttons">
+  <OreButtonGroup>
+    <OreIconButton icon="Menu" tip="Settings Menu" />
+    <OreIconButton icon="Refresh" tip="Reload World" />
+    <OreIconButton icon="search" tip="Search Server" />
+    <OreIconButton icon="question" tip="Help" variant="dark" />
+    <OreIconButton icon="cross" tip="Close" variant="red" />
+    <OreIconButton icon="check" tip="Confirm" variant="green" />
+  </OreButtonGroup>
+</OreDisplay>
+
+```vue
+<template>
+  <OreButtonGroup>
+    <OreIconButton icon="Menu" tip="Settings Menu" />
+    <OreIconButton icon="Refresh" tip="Reload World" />
+    <OreIconButton icon="cross" tip="Close" variant="red" />
+    <OreIconButton icon="check" tip="Confirm" variant="green" />
+  </OreButtonGroup>
+</template>
+```
+
+---
+
 ## 📋 Component Props
 
 | Prop | Description | Type | Values | Default |

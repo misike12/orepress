@@ -127,6 +127,7 @@ onUnmounted(() => {
   position: relative;
   border: 2px solid #1E1E1F;
   background: linear-gradient(to right, #3C8527 50%, #8C8D90 50%);
+  background-clip: padding-box;
   box-shadow: inset 2px 2px rgba(255, 255, 255, 0.2), inset -2px -2px rgba(255, 255, 255, 0.1);
   box-sizing: content-box;
 }

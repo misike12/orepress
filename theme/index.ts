@@ -36,6 +36,16 @@ import InteractiveDemo from './components/InteractiveDemo.vue'
 import InteractiveToastDemo from './components/InteractiveToastDemo.vue'
 import InteractiveModalDemo from './components/InteractiveModalDemo.vue'
 import SoundSandboxDemo from './components/SoundSandboxDemo.vue'
+import OreContainer from './components/OreContainer.vue'
+import OreDivider from './components/OreDivider.vue'
+import OreIconButton from './components/OreIconButton.vue'
+import OreNavbar from './components/OreNavbar.vue'
+import OreProgressRing from './components/OreProgressRing.vue'
+import OreSpinner from './components/OreSpinner.vue'
+import OreScrollbar from './components/OreScrollbar.vue'
+import OreTable from './components/OreTable.vue'
+import OreTextarea from './components/OreTextarea.vue'
+import OreToggles from './components/OreToggles.vue'
 
 // Export Components
 export {
@@ -64,7 +74,17 @@ export {
   OreSoundToggle,
   OreDisplay,
   OreHero,
-  OreFeatures
+  OreFeatures,
+  OreContainer,
+  OreDivider,
+  OreIconButton,
+  OreNavbar,
+  OreProgressRing,
+  OreSpinner,
+  OreScrollbar,
+  OreTable,
+  OreTextarea,
+  OreToggles
 }
 
 // Export Composables
@@ -102,6 +122,16 @@ const OreUITheme: Theme = {
     app.component('OreDisplay', OreDisplay)
     app.component('OreHero', OreHero)
     app.component('OreFeatures', OreFeatures)
+    app.component('OreContainer', OreContainer)
+    app.component('OreDivider', OreDivider)
+    app.component('OreIconButton', OreIconButton)
+    app.component('OreNavbar', OreNavbar)
+    app.component('OreProgressRing', OreProgressRing)
+    app.component('OreSpinner', OreSpinner)
+    app.component('OreScrollbar', OreScrollbar)
+    app.component('OreTable', OreTable)
+    app.component('OreTextarea', OreTextarea)
+    app.component('OreToggles', OreToggles)
     app.component('InteractiveDemo', InteractiveDemo)
     app.component('InteractiveToastDemo', InteractiveToastDemo)
     app.component('InteractiveModalDemo', InteractiveModalDemo)
