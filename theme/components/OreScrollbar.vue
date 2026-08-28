@@ -226,10 +226,6 @@ onMounted(() => {
   sync()
   resizeObserver = new ResizeObserver(() => sync())
   mutationObserver = new MutationObserver(() => {
-    observeContent()
-    resizeObserver?.disconnect()
-    resizeObserver = new ResizeObserver(() => sync())
-    observeContent()
     sync()
   })
   observeContent()

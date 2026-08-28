@@ -66,8 +66,15 @@ watch(
 
 function handleInput(e: Event) {
   const target = e.target as HTMLInputElement | HTMLTextAreaElement
-  innerValue.value = target.value
-  emit('update:modelValue', target.value)
+  let value: string | number = target.value
+  if (props.type === 'number' && target.value !== '') {
+    const num = Number(target.value)
+    if (!isNaN(num)) {
+      value = num
+    }
+  }
+  innerValue.value = value
+  emit('update:modelValue', value)
 }
 
 function handleFocus(e: FocusEvent) {

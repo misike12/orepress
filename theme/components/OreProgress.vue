@@ -177,4 +177,23 @@ const displayPercentage = computed(() => {
   );
   background-size: 20px 20px;
 }
+
+.oreui-progress-fill.is-animated.is-striped {
+  animation: oreui-stripe-move 1s linear infinite;
+}
+
+@keyframes oreui-stripe-move {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 20px 0;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .oreui-progress-fill.is-animated.is-striped {
+    animation: none;
+  }
+}
 </style>

@@ -80,17 +80,8 @@ withDefaults(defineProps<Props>(), {
   min-width: 0;
 }
 
-.oreui-navbar-actions :deep(.oreui-btn) {
-  margin: 0;
-}
-
+.oreui-navbar-actions :deep(.oreui-btn),
 .oreui-navbar-start :deep(.oreui-btn) {
   margin: 0;
-}
-
-.oreui-navbar-start :deep(.oreui-btn),
-.oreui-navbar-actions :deep(.oreui-btn) {
-  width: 36px;
-  height: 36px;
 }
 </style>

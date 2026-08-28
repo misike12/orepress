@@ -2,6 +2,11 @@
    VitePress Native Overrides with Complete OreUI & Minecraft Bedrock Aesthetic
    ========================================================================== */
 
+/* Hide default VitePress appearance toggle - we use custom OreIconButton */
+.VPNavBarAppearance {
+  display: none !important;
+}
+
 /* Overall Page & Typography */
 body {
   font-family: var(--font-noto-bold);
@@ -207,101 +212,28 @@ body {
   fill: currentColor !important;
 }
 
+/* Remove orphaned divider between nav items and social links */
+.VPNavBar .VPNavBarActions::before,
+.VPNavBar .VPNavBarActions::after,
+.VPNavBar .VPNavBarActions .divider,
+.VPNavBar .VPNavBarActions .divider-line {
+  display: none !important;
+}
+
+/* Ensure clean flex layout for right actions (social links + custom tools) */
+.VPNavBar .VPNavBarActions {
+  display: flex !important;
+  align-items: center !important;
+  gap: 12px !important;
+  padding: 0 12px !important;
+}
+
 .VPNavBar .VPSocialLink:hover,
-.VPNavBar .VPNavBarAppearance .VPSwitch:hover,
 .VPNavBar .VPNavBarHamburger:hover {
   color: #1E1E1F !important;
 }
 
-/* Minecraft switch for light/dark theme: faithful katorlys/OreUI ore-switch
-   port, no sun/moon icons. Light = OFF, html.dark = ON.
-   .VPSwitch = control (56x30), ::before = status square, .check = knob. */
-.VPNavBar .VPNavBarAppearance {
-  box-shadow: inset 2px 0 0 #FFFFFF, inset -2px 0 0 #A1A3A5 !important;
-}
 
-.VPNavBar .VPNavBarAppearance .VPSwitch {
-  position: relative !important;
-  display: inline-flex !important;
-  align-items: flex-end !important;
-  width: 56px !important;
-  height: 30px !important;
-  padding: 0 !important;
-  border: none !important;
-  border-radius: 0 !important;
-  background: transparent !important;
-  box-shadow: none !important;
-  transition: none !important;
-}
-
-.VPNavBar .VPNavBarAppearance input {
-  display: none !important;
-}
-
-/* status square: OFF gray (right), ON green (left) */
-.VPNavBar .VPNavBarAppearance .VPSwitch::before {
-  content: "";
-  flex: none !important;
-  box-sizing: border-box !important;
-  width: 26px !important;
-  height: 26px !important;
-  background:
-    linear-gradient(#8c8d90, #8c8d90) left 4px / 22px 18px no-repeat,
-    linear-gradient(#a3a4a6, #a3a4a6) left 2px / 24px 22px no-repeat,
-    #1e1e1f !important;
-  order: 0 !important;
-}
-
-html.dark .VPNavBar .VPNavBarAppearance .VPSwitch::before {
-  background:
-    linear-gradient(#3c8527, #3c8527) right 4px / 22px 18px no-repeat,
-    linear-gradient(#639d52, #639d52) right 2px / 24px 22px no-repeat,
-    #1e1e1f !important;
-  order: -1 !important;
-}
-
-/* raised bevel knob: left (OFF) / right (ON) */
-.VPNavBar .VPNavBarAppearance .VPSwitch .check {
-  position: static !important;
-  flex: none !important;
-  box-sizing: border-box !important;
-  width: 30px !important;
-  height: 30px !important;
-  border: none !important;
-  border-radius: 0 !important;
-  background:
-    linear-gradient(#d0d1d4, #d0d1d4) center 4px / 22px 18px no-repeat,
-    linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
-    linear-gradient(#e3e3e5, #e3e3e5) center 2px / 26px 22px no-repeat,
-    #1e1e1f !important;
-  box-shadow: none !important;
-  transform: none !important;
-  transition: none !important;
-  order: -1 !important;
-}
-
-html.dark .VPNavBar .VPNavBarAppearance .VPSwitch .check {
-  order: 0 !important;
-}
-
-.VPNavBar .VPNavBarAppearance .VPSwitch .check .icon {
-  display: none !important;
-}
-
-@media (hover: hover) and (pointer: fine) {
-  .VPNavBar .VPNavBarAppearance .VPSwitch:hover .check {
-    background:
-      linear-gradient(#f4f6f9, #f4f6f9) center 4px / 22px 18px no-repeat,
-      linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
-      linear-gradient(#fbfbfd, #fbfbfd) center 2px / 26px 22px no-repeat,
-      #1e1e1f !important;
-  }
-}
-
-.VPNavBar .VPNavBarAppearance .VPSwitch:focus-visible {
-  outline: 2px solid #ffffff !important;
-  outline-offset: 0 !important;
-}
 
 /* Mobile nav screen + local nav remain dark stone */
 .VPLocalNav {

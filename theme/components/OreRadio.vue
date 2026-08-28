@@ -45,7 +45,7 @@ const emit = defineEmits<{
 const radioGroup = inject<{
   modelValue: { value: string | number | boolean }
   changeValue: (val: string | number | boolean) => void
-  disabled?: { value: boolean } | boolean
+  disabled?: { value: boolean } | boolean | null
 } | null>('oreRadioGroup', null)
 
 const isChecked = computed(() => {
@@ -57,9 +57,9 @@ const isChecked = computed(() => {
 
 const isDisabled = computed(() => {
   const groupDisabled = radioGroup?.disabled
-    ? typeof radioGroup.disabled === 'object' && radioGroup.disabled !== null
+    ? (typeof radioGroup.disabled === 'object' && radioGroup.disabled !== null
       ? radioGroup.disabled.value
-      : (radioGroup.disabled as boolean)
+      : (radioGroup.disabled as boolean))
     : false
   return props.disabled || groupDisabled
 })

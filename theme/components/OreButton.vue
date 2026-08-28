@@ -4,6 +4,7 @@
       :is="computedHref ? 'a' : 'button'"
       :href="computedHref || undefined"
       :target="target"
+      :type="computedHref ? undefined : props.type"
       class="oreui-btn"
       :class="[
         `variant-${variant}`,
@@ -75,6 +76,7 @@ interface Props {
   icon?: string
   iconPosition?: 'left' | 'right'
   sound?: boolean
+  type?: 'button' | 'submit' | 'reset'
 }
 
 const props = withDefaults(defineProps<Props>(), {
@@ -90,7 +92,8 @@ const props = withDefaults(defineProps<Props>(), {
   tip: '',
   icon: '',
   iconPosition: 'left',
-  sound: true
+  sound: true,
+  type: 'button'
 })
 
 const emit = defineEmits<{
@@ -163,7 +166,8 @@ const computedHref = computed(() => {
     props.href.startsWith('https://') ||
     props.href.startsWith('//') ||
     props.href.startsWith('#') ||
-    props.href.startsWith('mailto:')
+    props.href.startsWith('mailto:') ||
+    props.href.startsWith('tel:')
   ) {
     return props.href
   }

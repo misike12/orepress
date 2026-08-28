@@ -174,20 +174,8 @@
   --vp-badge-danger-border: rgba(202, 54, 54, 0.5);
 }
 
-/* Light Theme Variables */
-html:not(.dark) {
-  --vp-c-bg: #48494A;
-  --vp-c-bg-alt: #313233;
-  --vp-c-bg-elv: #58585A;
-  --vp-c-bg-soft: #3d3e40;
-  --vp-nav-bg-color: #313233;
-  --vp-sidebar-bg-color: #28292A;
-  --vp-c-text-1: #FFFFFF;
-  --vp-c-text-2: #D0D1D4;
-}
-
-/* Dark Theme Variables */
-html.dark {
+/* Dark Theme Only - Default Variables */
+:root {
   --vp-c-bg: #242425;
   --vp-c-bg-alt: #1E1E1F;
   --vp-c-bg-elv: #313233;

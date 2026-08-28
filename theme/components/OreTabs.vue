@@ -1,12 +1,14 @@
 <template>
   <div class="oreui-tabs-container">
-    <div class="oreui-tabs-nav" role="tablist">
+    <div class="oreui-tabs-nav" role="tablist" @keydown="onKeydown">
       <button
         v-for="tab in normalizedTabs"
         :key="tab.value"
         type="button"
         role="tab"
         :aria-selected="currentTab === tab.value"
+        :aria-controls="`panel-${tab.value}`"
+        :id="`tab-${tab.value}`"
         class="oreui-tab-item"
         :class="{
           'is-active': currentTab === tab.value,
@@ -27,7 +29,13 @@
     </div>
 
     <!-- Active Tab Content Area (if slots provided) -->
-    <div v-if="$slots.default" class="oreui-tab-panel">
+    <div
+      v-if="$slots.default"
+      class="oreui-tab-panel"
+      role="tabpanel"
+      :aria-labelledby="`tab-${currentTab}`"
+      :id="`panel-${currentTab}`"
+    >
       <slot :active-tab="currentTab" />
     </div>
   </div>
@@ -105,6 +113,47 @@ function selectTab(val: string | number) {
   emit('update:modelValue', val)
   emit('change', val)
 }
+
+function onKeydown(e: KeyboardEvent) {
+  const tabs = normalizedTabs.value.filter((t) => !t.disabled)
+  if (tabs.length === 0) return
+
+  const currentIndex = tabs.findIndex((t) => t.value === currentTab.value)
+  let nextIndex = currentIndex
+
+  switch (e.key) {
+    case 'ArrowRight':
+    case 'ArrowDown':
+      e.preventDefault()
+      nextIndex = (currentIndex + 1) % tabs.length
+      break
+    case 'ArrowLeft':
+    case 'ArrowUp':
+      e.preventDefault()
+      nextIndex = (currentIndex - 1 + tabs.length) % tabs.length
+      break
+    case 'Home':
+      e.preventDefault()
+      nextIndex = 0
+      break
+    case 'End':
+      e.preventDefault()
+      nextIndex = tabs.length - 1
+      break
+    default:
+      return
+  }
+
+  if (nextIndex !== currentIndex) {
+    selectTab(tabs[nextIndex].value)
+    nextTick(() => {
+      const nextTab = document.getElementById(`tab-${tabs[nextIndex].value}`)
+      nextTab?.focus()
+    })
+  }
+}
+
+import { nextTick } from 'vue'
 </script>
 
 <style scoped>

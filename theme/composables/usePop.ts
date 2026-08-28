@@ -13,6 +13,8 @@ export interface PopMessage {
 export const popMessages = ref<PopMessage[]>([])
 let popIdCounter = 0
 
+const MAX_TOASTS = 5
+
 export function showPop(
   text: string,
   detail = '',
@@ -22,6 +24,14 @@ export function showPop(
   const id = ++popIdCounter
   const newMsg: PopMessage = { id, text, detail, status, duration }
   popMessages.value.push(newMsg)
+
+  // Limit maximum number of toasts
+  if (popMessages.value.length > MAX_TOASTS) {
+    const oldest = popMessages.value.shift()
+    if (oldest?._timer) {
+      clearTimeout(oldest._timer)
+    }
+  }
 
   if (status === 'error') {
     playSound('pop')

@@ -445,6 +445,7 @@
     linear-gradient(#8c8d90, #8c8d90) left 4px / 22px 18px no-repeat,
     linear-gradient(#a3a4a6, #a3a4a6) left 2px / 24px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 .ore-switch .ore-switch-button {
@@ -459,6 +460,7 @@
     linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
     linear-gradient(#e3e3e5, #e3e3e5) center 2px / 26px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
   box-shadow: 0 0 0 2px transparent;
   order: -1;
 }
@@ -472,6 +474,7 @@
     linear-gradient(#3c8527, #3c8527) right 4px / 22px 18px no-repeat,
     linear-gradient(#639d52, #639d52) right 2px / 24px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 .ore-switch[checked][color='secondary'] .ore-switch-status {
@@ -479,6 +482,7 @@
     linear-gradient(#d0d1d4, #d0d1d4) right 4px / 22px 18px no-repeat,
     linear-gradient(#e3e3e5, #e3e3e5) right 2px / 24px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 .ore-switch[checked][color='destructive'] .ore-switch-status {
@@ -486,6 +490,7 @@
     linear-gradient(#ca3636, #ca3636) right 4px / 22px 18px no-repeat,
     linear-gradient(#cf4a4a, #cf4a4a) right 2px / 24px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 .ore-switch[checked][color='dungeons'] .ore-switch-status {
@@ -493,6 +498,7 @@
     linear-gradient(#ffa41f, #ffa41f) right 4px / 22px 18px no-repeat,
     linear-gradient(#ffd953, #ffd953) right 2px / 24px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 .ore-switch[checked][color='legends'] .ore-switch-status {
@@ -500,6 +506,7 @@
     linear-gradient(#acf2ff, #acf2ff) right 4px / 22px 18px no-repeat,
     linear-gradient(#c4f5fe, #c4f5fe) right 2px / 24px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 .ore-switch[checked][color='realms'] .ore-switch-status {
@@ -507,6 +514,7 @@
     linear-gradient(#7345e5, #7345e5) right 4px / 22px 18px no-repeat,
     linear-gradient(#8557f8, #8557f8) right 2px / 24px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 .ore-switch[checked][color='gold'] .ore-switch-status {
@@ -514,6 +522,7 @@
     linear-gradient(#ffc42b, #ffc42b) right 4px / 22px 18px no-repeat,
     linear-gradient(#ffd953, #ffd953) right 2px / 24px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 @media (hover: hover) and (pointer: fine) {
@@ -523,6 +532,7 @@
       linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
       linear-gradient(#fbfbfd, #fbfbfd) center 2px / 26px 22px no-repeat,
       #1e1e1f;
+    background-clip: padding-box;
   }
 }
 
@@ -533,6 +543,7 @@
     linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
     linear-gradient(#d0d1d3, #d0d1d3) center 2px / 26px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
 }
 
 .ore-switch:focus-visible {
@@ -547,6 +558,7 @@
     linear-gradient(#58585a, #58585a) center 24px / 26px 4px no-repeat,
     linear-gradient(#ecedee, #ecedee) center 2px / 26px 22px no-repeat,
     #1e1e1f;
+  background-clip: padding-box;
   box-shadow: 0 0 0 2px #ffffff;
 }
 
@@ -587,6 +599,7 @@
     linear-gradient(#d0d1d4, #d0d1d4) left 4px / 22px 18px no-repeat,
     linear-gradient(#d0d1d4, #d0d1d4) left 2px / 24px 22px no-repeat,
     #8c8d90;
+  background-clip: padding-box;
 }
 
 .ore-switch[disabled] .ore-switch-button {
@@ -595,6 +608,7 @@
     linear-gradient(#b1b2b5, #b1b2b5) center 24px / 26px 4px no-repeat,
     linear-gradient(#d0d1d4, #d0d1d4) center 2px / 26px 22px no-repeat,
     #8c8d90;
+  background-clip: padding-box;
   box-shadow: none;
 }
 

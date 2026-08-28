@@ -114,15 +114,23 @@ function handleOutsideClick() {
   }
 }
 
+function handleKeydown(e: KeyboardEvent) {
+  if (e.key === 'Escape' && isOpen.value) {
+    isOpen.value = false
+  }
+}
+
 onMounted(() => {
   if (typeof window !== 'undefined') {
     window.addEventListener('click', handleOutsideClick)
+    window.addEventListener('keydown', handleKeydown)
   }
 })
 
 onUnmounted(() => {
   if (typeof window !== 'undefined') {
     window.removeEventListener('click', handleOutsideClick)
+    window.removeEventListener('keydown', handleKeydown)
   }
 })
 </script>

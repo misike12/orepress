@@ -2,7 +2,7 @@
   <teleport to="body">
     <transition name="modal-fade">
       <div v-if="modelValue" class="oreui-modal-overlay" @click="handleBackdropClick">
-        <div class="oreui-modal-box" @click.stop>
+        <div class="oreui-modal-box" @click.stop ref="modalBox">
           <!-- Modal Header -->
           <div class="oreui-modal-title-area">
             <div class="oreui-modal-title">
@@ -30,11 +30,13 @@
                 variant="green"
                 :text="confirmText"
                 @click="handleConfirm"
+                type="button"
               />
               <OreButton
                 variant="normal"
                 :text="cancelText"
                 @click="close"
+                type="button"
               />
             </slot>
           </div>
@@ -45,7 +47,7 @@
 </template>
 
 <script setup lang="ts">
-import { onMounted, onUnmounted } from 'vue'
+import { onMounted, onUnmounted, ref, nextTick } from 'vue'
 import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 import OreButton from './OreButton.vue'
@@ -79,6 +81,9 @@ const emit = defineEmits<{
   (e: 'close'): void
 }>()
 
+const modalBox = ref<HTMLElement | null>(null)
+let previouslyFocused: HTMLElement | null = null
+
 function close() {
   if (props.sound) {
     playSound('drawer_close')
@@ -86,6 +91,7 @@ function close() {
   emit('update:modelValue', false)
   emit('cancel')
   emit('close')
+  restoreFocus()
 }
 
 function handleConfirm() {
@@ -95,6 +101,7 @@ function handleConfirm() {
   emit('confirm')
   emit('update:modelValue', false)
   emit('close')
+  restoreFocus()
 }
 
 function handleBackdropClick() {
@@ -106,10 +113,48 @@ function handleBackdropClick() {
 function handleKeydown(e: KeyboardEvent) {
   if (e.key === 'Escape' && props.modelValue) {
     close()
+    return
+  }
+
+  if (e.key === 'Tab' && modalBox.value) {
+    trapFocus(e, modalBox.value)
   }
 }
 
+function trapFocus(e: KeyboardEvent, container: HTMLElement) {
+  const focusableElements = container.querySelectorAll<HTMLElement>(
+    'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+  )
+  const firstElement = focusableElements[0]
+  const lastElement = focusableElements[focusableElements.length - 1]
+
+  if (e.shiftKey && document.activeElement === firstElement) {
+    e.preventDefault()
+    lastElement?.focus()
+  } else if (!e.shiftKey && document.activeElement === lastElement) {
+    e.preventDefault()
+    firstElement?.focus()
+  }
+}
+
+function saveFocus() {
+  previouslyFocused = document.activeElement as HTMLElement
+}
+
+function restoreFocus() {
+  previouslyFocused?.focus()
+  previouslyFocused = null
+}
+
 onMounted(() => {
+  saveFocus()
+  nextTick(() => {
+    const firstFocusable = modalBox.value?.querySelector<HTMLElement>(
+      'button, [href], input, select, textarea, [tabindex]:not([tabindex="-1"])'
+    )
+    firstFocusable?.focus()
+  })
+
   if (typeof window !== 'undefined') {
     window.addEventListener('keydown', handleKeydown)
   }

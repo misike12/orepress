@@ -4,7 +4,9 @@
     :href="computedHref || undefined"
     :target="target"
     class="oreui-show-block"
+    tabindex="0"
     @click="handleClick"
+    @keydown="handleKeydown"
   >
     <div class="oreui-show-block-title">
       <img v-if="icon" :src="iconSrc" class="oreui-show-block-icon" alt="" />
@@ -49,7 +51,8 @@ const computedHref = computed(() => {
     props.href.startsWith('http://') ||
     props.href.startsWith('https://') ||
     props.href.startsWith('//') ||
-    props.href.startsWith('#')
+    props.href.startsWith('#') ||
+    props.href.startsWith('tel:')
   ) {
     return props.href
   }
@@ -70,6 +73,13 @@ function handleClick(e: MouseEvent) {
     playSound('click')
   }
   emit('click', e)
+}
+
+function handleKeydown(e: KeyboardEvent) {
+  if (props.href && (e.key === 'Enter' || e.key === ' ')) {
+    e.preventDefault()
+    handleClick(e as unknown as MouseEvent)
+  }
 }
 </script>
 

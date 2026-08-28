@@ -160,23 +160,23 @@ function onPointerMove(e: PointerEvent) {
   updateFromEvent(e)
 }
 
-function onPointerUp(e: PointerEvent) {
-  if (isDragging.value) {
-    isDragging.value = false
-    if (typeof window !== 'undefined') {
-      window.removeEventListener('pointermove', onPointerMove)
-      window.removeEventListener('pointerup', onPointerUp)
-      window.removeEventListener('pointercancel', onPointerUp)
-    }
-  }
-}
-
-onUnmounted(() => {
+function cleanupPointerListeners() {
   if (typeof window !== 'undefined') {
     window.removeEventListener('pointermove', onPointerMove)
     window.removeEventListener('pointerup', onPointerUp)
     window.removeEventListener('pointercancel', onPointerUp)
   }
+}
+
+function onPointerUp(e: PointerEvent) {
+  if (isDragging.value) {
+    isDragging.value = false
+    cleanupPointerListeners()
+  }
+}
+
+onUnmounted(() => {
+  cleanupPointerListeners()
 })
 </script>
 

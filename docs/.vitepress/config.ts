@@ -81,9 +81,6 @@ export default defineConfig({
       next: 'Next page'
     },
 
-    darkModeSwitchLabel: 'Appearance',
-    lightModeSwitchTitle: 'Switch to light mode',
-    darkModeSwitchTitle: 'Switch to dark mode',
     sidebarMenuLabel: 'Menu',
     returnToTopLabel: 'Return to top'
   }

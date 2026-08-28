@@ -14,7 +14,7 @@
       @click="toggle"
       @keydown="onKeydown"
       @keyup="onKeyup"
-      @blur="releasePress"
+      @blur="onPointerUp"
       @pointerdown="onPointerDown"
     >
       <span class="ore-switch-control" aria-hidden="true">
@@ -106,7 +106,7 @@ function onKeyup(event: KeyboardEvent) {
   if (props.disabled) return
   if (event.key === ' ') {
     event.preventDefault()
-    releasePress()
+    onPointerUp()
     toggle()
   }
 }
@@ -114,14 +114,12 @@ function onKeyup(event: KeyboardEvent) {
 function onPointerDown(event: PointerEvent) {
   if (props.disabled || event.button !== 0) return
   pressed.value = true
-  window.addEventListener('pointerup', releasePress, { once: true })
-  window.addEventListener('pointercancel', releasePress, { once: true })
+  window.addEventListener('pointerup', onPointerUp, { once: true })
+  window.addEventListener('pointercancel', onPointerUp, { once: true })
 }
 
-function releasePress() {
+function onPointerUp() {
   pressed.value = false
-  window.removeEventListener('pointerup', releasePress)
-  window.removeEventListener('pointercancel', releasePress)
 }
 </script>
 

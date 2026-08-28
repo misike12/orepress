@@ -1,8 +1,12 @@
 <template>
   <div class="oreui-accordion" :class="{ 'is-open': isOpen, 'is-disabled': disabled }">
-    <div
+    <button
       class="oreui-accordion-header"
       @click="toggle"
+      @keydown="onKeydown"
+      :aria-expanded="isOpen"
+      :disabled="disabled"
+      type="button"
     >
       <div class="oreui-accordion-title-box">
         <img
@@ -23,7 +27,7 @@
         :class="{ 'is-rotated': isOpen }"
         alt="▼"
       />
-    </div>
+    </button>
 
     <div v-show="isOpen" class="oreui-accordion-content">
       <slot />
@@ -93,6 +97,13 @@ function toggle() {
   emit('update:modelValue', next)
   emit('change', next)
 }
+
+function onKeydown(e: KeyboardEvent) {
+  if (e.key === 'Enter' || e.key === ' ') {
+    e.preventDefault()
+    toggle()
+  }
+}
 </script>
 
 <style scoped>
@@ -113,6 +124,7 @@ function toggle() {
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 100%;
   padding: 10px 14px;
   background-color: #58585A;
   border-bottom: 2px solid #1E1E1F;

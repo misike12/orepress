@@ -2,7 +2,7 @@
   <OreButton
     class="oreui-icon-button"
     :variant="variant"
-    size="icon"
+    :size="size"
     :icon="icon"
     :tip="tip"
     :disabled="disabled"
@@ -10,6 +10,8 @@
     :sound="sound"
     :href="href"
     :target="target"
+    :enchanted="enchanted"
+    :icon-position="iconPosition"
     @click="emit('click', $event)"
   >
     <slot></slot>
@@ -33,6 +35,7 @@ interface Props {
     | 'dark'
     | 'ghost'
     | 'disabled'
+  size?: 'icon' | 'icon-sm'
   icon?: string
   tip?: string
   disabled?: boolean
@@ -40,17 +43,22 @@ interface Props {
   href?: string
   target?: string
   sound?: boolean
+  enchanted?: boolean
+  iconPosition?: 'left' | 'right'
 }
 
 withDefaults(defineProps<Props>(), {
   variant: 'normal',
+  size: 'icon',
   icon: '',
   tip: '',
   disabled: false,
   loading: false,
   href: '',
   target: '',
-  sound: true
+  sound: true,
+  enchanted: false,
+  iconPosition: 'left'
 })
 
 const emit = defineEmits<{
