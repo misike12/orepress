@@ -1,6 +1,6 @@
 {
   "name": "vitepress-theme-oreui",
-  "version": "1.1.1.B",
+  "version": "1.1.1.C",
   "description": "A full-featured VitePress theme inspired by Spectrollay Ore UI & Minecraft Bedrock design language",
   "main": "theme/index.ts",
   "module": "theme/index.ts",

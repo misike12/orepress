@@ -175,11 +175,13 @@ A pixelated comet ring that spins in discrete animation steps, matching the Bedr
 
 ```vue
 <template>
-  <!-- Default size & color -->
+  <!-- Default pixel comet -->
+  <OreSpinner :size="24" />
   <OreSpinner :size="32" />
 
   <!-- Tinted pixels -->
   <OreSpinner :size="40" color="#55FF55" />
+  <OreSpinner :size="40" color="#F46D6D" />
 
   <!-- Inside buttons via the loading prop -->
   <OreButton variant="green" text="Loading..." loading />
