@@ -50,7 +50,7 @@ function changeValue(val: string | number | boolean) {
 provide('oreRadioGroup', {
   modelValue: computed(() => innerValue.value),
   changeValue,
-  disabled: props.disabled
+  disabled: computed(() => props.disabled)
 })
 </script>
 

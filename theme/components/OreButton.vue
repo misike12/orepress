@@ -9,12 +9,12 @@
         `variant-${variant}`,
         `size-${size}`,
         {
-          'is-disabled': disabled || isCountingDown || loading,
+          'is-disabled': isDisabled,
           'mc-enchanted-foil': enchanted,
           'is-loading': loading
         }
       ]"
-      :disabled="disabled || isCountingDown || loading"
+      :disabled="isDisabled"
       @click="handleClick"
     >
       <!-- Loading spinner -->
@@ -45,7 +45,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed, ref, onUnmounted } from 'vue'
+import { computed, ref, watch, onMounted, onUnmounted } from 'vue'
 import { withBase } from 'vitepress'
 import { playSound } from '../composables/useSound'
 
@@ -101,21 +101,53 @@ const emit = defineEmits<{
 const remaining = ref(props.countdown)
 let countdownTimer: ReturnType<typeof setInterval> | null = null
 
-if (props.countdown > 0) {
-  countdownTimer = setInterval(() => {
-    remaining.value--
-    if (remaining.value <= 0) {
-      if (countdownTimer) clearInterval(countdownTimer)
-      emit('countdown-finish')
-    }
-  }, 1000)
+function stopCountdown() {
+  if (countdownTimer) {
+    clearInterval(countdownTimer)
+    countdownTimer = null
+  }
 }
 
+function startCountdown() {
+  stopCountdown()
+  if (props.countdown > 0) {
+    remaining.value = props.countdown
+    countdownTimer = setInterval(() => {
+      remaining.value--
+      if (remaining.value <= 0) {
+        stopCountdown()
+        emit('countdown-finish')
+      }
+    }, 1000)
+  } else {
+    remaining.value = 0
+  }
+}
+
+watch(
+  () => props.countdown,
+  () => {
+    startCountdown()
+  }
+)
+
+onMounted(() => {
+  startCountdown()
+})
+
 onUnmounted(() => {
-  if (countdownTimer) clearInterval(countdownTimer)
+  stopCountdown()
 })
 
 const isCountingDown = computed(() => remaining.value > 0)
+
+const isDisabled = computed(
+  () =>
+    props.disabled ||
+    props.loading ||
+    props.variant === 'disabled' ||
+    isCountingDown.value
+)
 
 const displayLabel = computed(() => {
   if (isCountingDown.value) {
@@ -148,7 +180,7 @@ const iconSrc = computed(() => {
 })
 
 function handleClick(e: MouseEvent) {
-  if (props.disabled || isCountingDown.value || props.loading) {
+  if (isDisabled.value) {
     e.preventDefault()
     return
   }

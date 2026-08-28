@@ -4,8 +4,8 @@ import HomePage from './components/HomePage.vue'
 
 const DocsTheme: Theme = {
   extends: OreUITheme,
-  async enhanceApp(ctx) {
-    if (OreUITheme.enhanceApp) await OreUITheme.enhanceApp(ctx)
+  enhanceApp(ctx) {
+    if (OreUITheme.enhanceApp) OreUITheme.enhanceApp(ctx)
     ctx.app.component('HomePage', HomePage)
   }
 }

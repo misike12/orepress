@@ -96,6 +96,8 @@ function resolveIcon(icon: string) {
 
 function selectTab(val: string | number) {
   if (currentTab.value === val) return
+  const target = normalizedTabs.value.find((t) => t.value === val)
+  if (target?.disabled) return
   currentTab.value = val
   if (props.sound) {
     playSound('drawer_open')

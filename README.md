@@ -4,7 +4,7 @@
 
 **An authentic, immersive VitePress theme inspired by Spectrollay OreUI and the Minecraft Bedrock Edition design language.**
 
-[![npm version](https://img.shields.io/badge/npm-v1.1.0-3C8527.svg?style=flat-square&logo=npm)](https://www.npmjs.com/)
+[![npm version](https://img.shields.io/badge/npm-v1.1.1-3C8527.svg?style=flat-square&logo=npm)](https://www.npmjs.com/)
 [![VitePress](https://img.shields.io/badge/VitePress-1.6.4-10B981.svg?style=flat-square&logo=vitepress)](https://vitepress.dev/)
 [![Vue 3](https://img.shields.io/badge/Vue-3.4+-4FC08D.svg?style=flat-square&logo=vuedotjs)](https://vuejs.org/)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.5+-3178C6.svg?style=flat-square&logo=typescript)](https://www.typescriptlang.org/)

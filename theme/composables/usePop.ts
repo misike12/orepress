@@ -7,6 +7,7 @@ export interface PopMessage {
   detail?: string
   status?: 'success' | 'process' | 'error' | 'vip' | 'debug_text'
   duration?: number
+  _timer?: ReturnType<typeof setTimeout>
 }
 
 export const popMessages = ref<PopMessage[]>([])
@@ -29,7 +30,7 @@ export function showPop(
   }
 
   if (duration > 0) {
-    setTimeout(() => {
+    newMsg._timer = setTimeout(() => {
       removePop(id)
     }, duration)
   }
@@ -38,6 +39,11 @@ export function showPop(
 }
 
 export function removePop(id: number) {
+  const msg = popMessages.value.find((m) => m.id === id)
+  if (msg?._timer) {
+    clearTimeout(msg._timer)
+    msg._timer = undefined
+  }
   popMessages.value = popMessages.value.filter((msg) => msg.id !== id)
 }
 

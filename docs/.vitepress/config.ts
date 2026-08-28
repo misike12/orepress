@@ -1,5 +1,7 @@
 import { defineConfig } from 'vitepress'
-import path from 'path'
+import { fileURLToPath } from 'url'
+
+const themeDir = fileURLToPath(new URL('../../theme', import.meta.url))
 
 export default defineConfig({
   base: '/orepress/',
@@ -13,7 +15,7 @@ export default defineConfig({
   vite: {
     resolve: {
       alias: {
-        '@theme': path.resolve(__dirname, '../../theme')
+        '@theme': themeDir
       }
     }
   },

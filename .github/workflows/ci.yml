@@ -2,9 +2,8 @@ name: CI
 
 on:
   push:
-    branches: ["**"]
+    branches: [main]
   pull_request:
-    branches: ["**"]
 
 jobs:
   build:
@@ -18,14 +17,12 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: ${{ matrix.node-version }}
+          cache: npm
       - name: Install dependencies
-        run: |
-          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+        run: npm ci
       - name: Type check
-        run: |
-          if npx tsc --noEmit; then echo "Type check passed"; else echo "Type check failed"; exit 1; fi
+        run: npm run typecheck
       - name: Build docs
-        run: |
-          npm run build
+        run: npm run build
         env:
           CI: true

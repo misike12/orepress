@@ -11,13 +11,18 @@
       <h3 class="feature-title">{{ item.title }}</h3>
       <p class="feature-details">{{ item.details }}</p>
       <div v-if="item.link" class="feature-link-row">
-        <a :href="item.link" class="feature-link">Learn More &rarr;</a>
+        <a
+          :href="resolveLink(item.link)"
+          class="feature-link"
+        >Learn More &rarr;</a>
       </div>
     </div>
   </div>
 </template>
 
 <script setup lang="ts">
+import { withBase } from 'vitepress'
+
 interface FeatureItem {
   icon: string
   title: string
@@ -57,6 +62,19 @@ withDefaults(defineProps<Props>(), {
     }
   ]
 })
+
+function resolveLink(link: string): string {
+  if (
+    link.startsWith('http://') ||
+    link.startsWith('https://') ||
+    link.startsWith('//') ||
+    link.startsWith('#') ||
+    link.startsWith('mailto:')
+  ) {
+    return link
+  }
+  return withBase(link)
+}
 </script>
 
 <style scoped>

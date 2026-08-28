@@ -64,11 +64,7 @@ export {
   OreSoundToggle,
   OreDisplay,
   OreHero,
-  OreFeatures,
-  InteractiveDemo,
-  InteractiveToastDemo,
-  InteractiveModalDemo,
-  SoundSandboxDemo
+  OreFeatures
 }
 
 // Export Composables

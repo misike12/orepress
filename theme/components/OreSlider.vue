@@ -122,9 +122,8 @@ function updateFromEvent(e: PointerEvent | MouseEvent) {
   if (props.disabled) return
   const finalVal = calculateValue(e.clientX)
   if (finalVal !== innerValue.value) {
-    const prev = innerValue.value
     innerValue.value = finalVal
-    if (props.sound && prev !== finalVal) {
+    if (props.sound) {
       playSound('click')
     }
     emit('update:modelValue', finalVal)

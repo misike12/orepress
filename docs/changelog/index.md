@@ -6,6 +6,29 @@ Version history and release notes for the OreUI VitePress Theme.
 
 ---
 
+## <OreBadge type="release">Release</OreBadge> v1.1.1 (2026-08-28)
+
+### 🐛 Bug Fixes & Quality Improvements
+- **`OreButton` `variant="disabled"` now actually disables**: Added proper disabled styling and click/sound guards; the button can no longer be activated.
+- **`OreButton` countdown timer is now reactive**: Timer starts on mount, resets correctly when the `countdown` prop changes, and is cleaned up on prop change/unmount.
+- **`OreRadioGroup` / `OreRadio` disabled state is reactive**: `disabled` is now injected as a `computed`, so child radios update instantly when the group's disabled state toggles.
+- **`OreFeatures` internal links fixed**: Links now use `withBase()` so they resolve correctly when the site is deployed under a sub-path (`/orepress/`).
+- **`OreModal` consistent close events**: Confirming now also emits the `close` event, matching the cancel/backdrop paths.
+- **`OreInput` type consistency**: `update:modelValue` emit type aligned with the `string | number` modelValue prop.
+- **`OreTabs` disabled guard**: Programmatic `selectTab` calls no longer bypass disabled tabs.
+- **`OreSlider` dead logic removed**: Redundant internal condition cleaned up.
+- **`OreTooltip` & animation cleanup**: Dead transform transition removed; duplicate `thinFlash`/`thickFlash` keyframes consolidated.
+- **`usePop` timer cleanup**: Auto-removal timers are properly cancelled when toasts are dismissed manually.
+
+### 🧹 Maintenance
+- **`vue-tsc` type checking**: Added `typecheck` script (`vue-tsc --noEmit`) and updated CI to use it — proper type checking for all `.vue` files.
+- **CI workflow cleanup**: Removed duplicate push + PR triggers, added npm dependency caching.
+- **Removed dead assets**: Deleted 53 unused duplicate images and 8 unused sound files from the package; empty `utils/` directory removed.
+- **Removed demo components from the public export API** (still globally registered for the docs).
+- **Docs config**: Replaced CommonJS `__dirname` with ESM-safe `fileURLToPath`; removed unnecessary `await` in the docs theme.
+
+---
+
 ## <OreBadge type="release">Release</OreBadge> v1.1.0 (2026-08-26)
 
 ### 🚀 New Components & Major Enhancements

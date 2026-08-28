@@ -2,18 +2,8 @@
    OreUI Keyframe Animations
    ========================================================================== */
 
-/* Shimmer thick flash for ShowBlock */
+/* Shimmer flash for ShowBlock */
 @keyframes thickFlash {
-  0% {
-    left: -150%;
-  }
-  100% {
-    left: 150%;
-  }
-}
-
-/* Shimmer thin flash for ShowBlock */
-@keyframes thinFlash {
   0% {
     left: -150%;
   }
