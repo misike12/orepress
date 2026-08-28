@@ -98,7 +98,6 @@ Replicates the authentic Minecraft double-bordered violet gradient item tooltip 
     <OreTooltip title="Netherite Sword" content="Sharpness V, Unbreaking III, Mending">
       <OreButton variant="purple" enchanted text="Hover for Item Tooltip" />
     </OreTooltip>
-
     <OreTooltip title="Server Status" content="Online: 1,420 / 2,000 Players">
       <OreButton variant="green" text="Hover for Server Info" />
     </OreTooltip>

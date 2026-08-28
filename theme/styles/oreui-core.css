@@ -39,9 +39,8 @@
 }
 
 .oreui-btn:active:not(:disabled):not(.is-disabled) {
-  height: calc(var(--oreui-btn-height) - var(--oreui-btn-active-offset));
-  margin-top: calc(var(--oreui-btn-margin) + var(--oreui-btn-active-offset));
   padding: 3px 16px 3px 16px;
+  transform: translateY(var(--oreui-btn-active-offset));
 }
 
 /* Button Sizes (min-width so long labels expand horizontally instead of wrapping) */
@@ -304,16 +303,13 @@
   transform: translateY(-2px);
 }
 
-/* Keep icon-only buttons square when pressed (base :active rule adds text padding) */
+/* Press effect is transform-based (see base :active), icon-only buttons just keep
+   padding 0 so the icon doesn't shift when pressed */
 .oreui-btn.size-icon:active:not(:disabled):not(.is-disabled) {
-  height: calc(42px - var(--oreui-btn-active-offset));
-  margin-top: calc(var(--oreui-btn-margin) + var(--oreui-btn-active-offset));
   padding: 0;
 }
 
 .oreui-btn.size-icon-sm:active:not(:disabled):not(.is-disabled) {
-  height: calc(32px - var(--oreui-btn-active-offset));
-  margin-top: calc(var(--oreui-btn-margin) + var(--oreui-btn-active-offset));
   padding: 0;
 }
 
