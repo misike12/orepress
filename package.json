@@ -19,7 +19,8 @@
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
     "typecheck": "vue-tsc --noEmit",
-    "update": "pnpm update --latest"
+    "update": "pnpm update --latest",
+    "prepublishOnly": "pnpm run typecheck"
   },
   "keywords": [
     "vitepress",
