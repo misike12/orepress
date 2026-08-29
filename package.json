@@ -6,6 +6,7 @@
   "module": "theme/index.ts",
   "types": "theme/index.ts",
   "type": "module",
+  "packageManager": "pnpm@9.15.1",
   "files": [
     "theme"
   ],
@@ -17,7 +18,8 @@
     "dev": "vitepress dev docs",
     "build": "vitepress build docs",
     "preview": "vitepress preview docs",
-    "typecheck": "vue-tsc --noEmit"
+    "typecheck": "vue-tsc --noEmit",
+    "update": "pnpm update --latest"
   },
   "keywords": [
     "vitepress",
